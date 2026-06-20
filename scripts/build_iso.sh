@@ -30,6 +30,12 @@ wireplumber
 apparmor
 plymouth
 konsole
+# Explicit providers to avoid pacman interactive prompts
+pipewire-jack
+noto-fonts
+iptables-nft
+qt6-multimedia-ffmpeg
+tesseract-data-eng
 EOF
 
 echo "Applying Theonix OS Branding..."
