@@ -36,6 +36,7 @@ file_permissions=(
     # Security-critical files
     ["/etc/shadow"]="0:0:000"
     ["/etc/gshadow"]="0:0:000"
+    ["/etc/sudoers.d/11-live-session"]="0:0:0440"
 
     # Root home directory
     ["/root"]="0:0:750"

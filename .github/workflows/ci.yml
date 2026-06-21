@@ -51,7 +51,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run cargo-audit
-        uses: actions-rs/audit-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: -f ./thaid/Cargo.lock
+        run: |
+          cargo install cargo-audit
+          cargo audit -f ./thaid/Cargo.lock

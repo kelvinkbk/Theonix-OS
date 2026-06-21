@@ -12,7 +12,7 @@ strings:
     shortVersion:         "1.0"
     versionedName:        "Theonix OS 1.0 (created by kelvin benny koshy)"
     shortVersionedName:   "Theonix OS 1.0 (created by kelvin benny koshy)"
-    bootloaderEntryName:  "Theonix OS"
+    bootloaderEntryName:  "theonix"
     productCopyright:     "Created by Kelvin Benny Koshy"
     productUrl:           "https://theonix.org/"
     supportUrl:           "https://community.theonix.org/"

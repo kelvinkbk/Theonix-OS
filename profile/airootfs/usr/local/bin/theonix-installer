@@ -33,4 +33,4 @@ else
     echo "Warning: konsole not found — install logs will only appear in Calamares UI." >&2
 fi
 
-exec calamares "$@"
+exec sudo calamares "$@"
