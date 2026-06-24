@@ -49,11 +49,7 @@ sysinfo = "0.30"
 # UUID for session IDs
 uuid = { version = "1", features = ["v4"] }
 
-# Process management (Whisper/Piper subprocess)
-tokio-process = "0.2"
 
-# Signal handling
-tokio-signal = "0.3"
 
 [dev-dependencies]
 tempfile  = "3"

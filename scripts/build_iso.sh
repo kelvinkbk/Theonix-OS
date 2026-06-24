@@ -173,7 +173,7 @@ CALAMARES_LOCAL="$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/modules"
 
 MODULES=$(grep -E '^\s+- ' "$CALAMARES_SETTINGS" 2>/dev/null | sed 's/#.*//; s/^\s*- //; s/\s*$//' | grep -v -E '^(local|/usr/lib/calamares/modules|show:|exec:)$' | grep -v '^\s*$' | sort -u)
 
-VALIDATION_FAILED=0
+
 echo "Module validation report:"
 echo "-------------------------------------------"
 
