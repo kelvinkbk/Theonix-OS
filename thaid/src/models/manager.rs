@@ -205,13 +205,16 @@ impl ModelManager {
     async fn ollama_pull(&self, model: &str) -> Result<()> {
         #[derive(Serialize)]
         struct PullRequest<'a> {
-            name:   &'a str,
+            name: &'a str,
             stream: bool,
         }
 
         self.http
             .post(format!("{}/api/pull", self.ollama_url))
-            .json(&PullRequest { name: model, stream: false })
+            .json(&PullRequest {
+                name: model,
+                stream: false,
+            })
             .send()
             .await
             .context("Pull request to Ollama failed")?

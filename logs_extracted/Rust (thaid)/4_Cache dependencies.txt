@@ -1,0 +1,52 @@
+﻿2026-06-24T18:09:02.1759567Z ##[group]Run Swatinem/rust-cache@v2
+2026-06-24T18:09:02.1760648Z with:
+2026-06-24T18:09:02.1761399Z   workspaces: ./thaid
+2026-06-24T18:09:02.1762262Z   prefix-key: v0-rust
+2026-06-24T18:09:02.1763124Z   add-job-id-key: true
+2026-06-24T18:09:02.1764271Z   add-rust-environment-hash-key: true
+2026-06-24T18:09:02.1765317Z   cache-targets: true
+2026-06-24T18:09:02.1766201Z   cache-all-crates: false
+2026-06-24T18:09:02.1767140Z   cache-workspace-crates: false
+2026-06-24T18:09:02.1768086Z   save-if: true
+2026-06-24T18:09:02.1768908Z   cache-provider: github
+2026-06-24T18:09:02.1769786Z   cache-bin: true
+2026-06-24T18:09:02.1770589Z   lookup-only: false
+2026-06-24T18:09:02.1771409Z   cmd-format: {0}
+2026-06-24T18:09:02.1772180Z env:
+2026-06-24T18:09:02.1772939Z   CARGO_HOME: /home/runner/.cargo
+2026-06-24T18:09:02.1774063Z   CARGO_INCREMENTAL: 0
+2026-06-24T18:09:02.1774951Z   CARGO_TERM_COLOR: always
+2026-06-24T18:09:02.1775837Z ##[endgroup]
+2026-06-24T18:09:02.4642878Z (node:2409) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-24T18:09:02.4646198Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-24T18:09:02.6242893Z ##[group]Cache Configuration
+2026-06-24T18:09:02.6244627Z Cache Provider:
+2026-06-24T18:09:02.6245738Z     github
+2026-06-24T18:09:02.6246520Z Workspaces:
+2026-06-24T18:09:02.6247432Z     /home/runner/work/Theonix-OS/Theonix-OS/thaid
+2026-06-24T18:09:02.6248567Z Cache Paths:
+2026-06-24T18:09:02.6249392Z     /home/runner/.cargo/bin
+2026-06-24T18:09:02.6250372Z     /home/runner/.cargo/.crates.toml
+2026-06-24T18:09:02.6251448Z     /home/runner/.cargo/.crates2.json
+2026-06-24T18:09:02.6252524Z     /home/runner/.cargo/registry
+2026-06-24T18:09:02.6253987Z     /home/runner/.cargo/git
+2026-06-24T18:09:02.6255806Z     /home/runner/work/Theonix-OS/Theonix-OS/thaid/target
+2026-06-24T18:09:02.6257240Z Restore Key:
+2026-06-24T18:09:02.6258132Z     v0-rust-rust-checks-Linux-x64-4107bf91
+2026-06-24T18:09:02.6259404Z Cache Key:
+2026-06-24T18:09:02.6260894Z     v0-rust-rust-checks-Linux-x64-4107bf91-7bd83ddd
+2026-06-24T18:09:02.6262854Z .. Prefix:
+2026-06-24T18:09:02.6264465Z   - v0-rust-rust-checks-Linux-x64
+2026-06-24T18:09:02.6266198Z .. Environment considered:
+2026-06-24T18:09:02.6267669Z   - Rust Versions:
+2026-06-24T18:09:02.6269569Z     - 1.96.0 x86_64-unknown-linux-gnu ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+2026-06-24T18:09:02.6272468Z     - 1.96.0 x86_64-unknown-linux-gnu ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+2026-06-24T18:09:02.6275012Z   - CARGO_HOME
+2026-06-24T18:09:02.6276205Z   - CARGO_INCREMENTAL
+2026-06-24T18:09:02.6277079Z   - CARGO_TERM_COLOR
+2026-06-24T18:09:02.6277946Z .. Lockfiles considered:
+2026-06-24T18:09:02.6279624Z   - /home/runner/work/Theonix-OS/Theonix-OS/thaid/Cargo.toml
+2026-06-24T18:09:02.6281994Z ##[endgroup]
+2026-06-24T18:09:02.6282618Z 
+2026-06-24T18:09:02.6283163Z ... Restoring cache ...
+2026-06-24T18:09:02.7538167Z No cache found.

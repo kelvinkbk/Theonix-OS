@@ -1,0 +1,33 @@
+﻿2026-06-24T18:08:59.1777005Z Current runner version: '2.335.1'
+2026-06-24T18:08:59.1802642Z ##[group]Runner Image Provisioner
+2026-06-24T18:08:59.1803760Z Hosted Compute Agent
+2026-06-24T18:08:59.1804356Z Version: 20260611.554
+2026-06-24T18:08:59.1805122Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+2026-06-24T18:08:59.1805855Z Build Date: 2026-06-11T21:40:46Z
+2026-06-24T18:08:59.1806582Z Worker ID: {af900fe3-3de7-462d-bd28-c2649e6c70ef}
+2026-06-24T18:08:59.1807315Z Azure Region: northcentralus
+2026-06-24T18:08:59.1807930Z ##[endgroup]
+2026-06-24T18:08:59.1809565Z ##[group]Operating System
+2026-06-24T18:08:59.1810219Z Ubuntu
+2026-06-24T18:08:59.1810764Z 24.04.4
+2026-06-24T18:08:59.1811346Z LTS
+2026-06-24T18:08:59.1811860Z ##[endgroup]
+2026-06-24T18:08:59.1812441Z ##[group]Runner Image
+2026-06-24T18:08:59.1813142Z Image: ubuntu-24.04
+2026-06-24T18:08:59.1813919Z Version: 20260615.205.1
+2026-06-24T18:08:59.1815052Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260615.205/images/ubuntu/Ubuntu2404-Readme.md
+2026-06-24T18:08:59.1816801Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260615.205
+2026-06-24T18:08:59.1817819Z ##[endgroup]
+2026-06-24T18:08:59.1819048Z ##[group]GITHUB_TOKEN Permissions
+2026-06-24T18:08:59.1820962Z Contents: read
+2026-06-24T18:08:59.1821588Z Metadata: read
+2026-06-24T18:08:59.1822695Z Packages: read
+2026-06-24T18:08:59.1823534Z ##[endgroup]
+2026-06-24T18:08:59.1825838Z Secret source: Actions
+2026-06-24T18:08:59.1826932Z Prepare workflow directory
+2026-06-24T18:08:59.2291641Z Prepare all required actions
+2026-06-24T18:08:59.2351159Z Getting action download info
+2026-06-24T18:08:59.5334525Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-24T18:08:59.6109130Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:29eef336d9b2848a0b548edc03f92a220660cdb8)
+2026-06-24T18:08:59.7422086Z Download action repository 'Swatinem/rust-cache@v2' (SHA:e18b497796c12c097a38f9edb9d0641fb99eee32)
+2026-06-24T18:09:00.4102073Z Complete job name: Rust (thaid)

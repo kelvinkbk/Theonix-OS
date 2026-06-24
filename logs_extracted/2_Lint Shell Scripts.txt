@@ -1,0 +1,125 @@
+﻿2026-06-24T18:08:57.9196826Z Current runner version: '2.335.1'
+2026-06-24T18:08:57.9223696Z ##[group]Runner Image Provisioner
+2026-06-24T18:08:57.9224553Z Hosted Compute Agent
+2026-06-24T18:08:57.9225290Z Version: 20260611.554
+2026-06-24T18:08:57.9225921Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+2026-06-24T18:08:57.9226680Z Build Date: 2026-06-11T21:40:46Z
+2026-06-24T18:08:57.9227387Z Worker ID: {21296931-b4ba-4159-b5a6-bdfabe335c97}
+2026-06-24T18:08:57.9228104Z Azure Region: northcentralus
+2026-06-24T18:08:57.9228791Z ##[endgroup]
+2026-06-24T18:08:57.9230511Z ##[group]Operating System
+2026-06-24T18:08:57.9231143Z Ubuntu
+2026-06-24T18:08:57.9231759Z 24.04.4
+2026-06-24T18:08:57.9232268Z LTS
+2026-06-24T18:08:57.9232855Z ##[endgroup]
+2026-06-24T18:08:57.9233458Z ##[group]Runner Image
+2026-06-24T18:08:57.9234083Z Image: ubuntu-24.04
+2026-06-24T18:08:57.9234720Z Version: 20260622.220.1
+2026-06-24T18:08:57.9235969Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260622.220/images/ubuntu/Ubuntu2404-Readme.md
+2026-06-24T18:08:57.9237534Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260622.220
+2026-06-24T18:08:57.9238538Z ##[endgroup]
+2026-06-24T18:08:57.9240178Z ##[group]GITHUB_TOKEN Permissions
+2026-06-24T18:08:57.9242553Z Contents: read
+2026-06-24T18:08:57.9243253Z Metadata: read
+2026-06-24T18:08:57.9243815Z Packages: read
+2026-06-24T18:08:57.9244407Z ##[endgroup]
+2026-06-24T18:08:57.9246485Z Secret source: Actions
+2026-06-24T18:08:57.9247900Z Prepare workflow directory
+2026-06-24T18:08:57.9586556Z Prepare all required actions
+2026-06-24T18:08:57.9625700Z Getting action download info
+2026-06-24T18:08:58.2293661Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-24T18:08:58.4452226Z Complete job name: Lint Shell Scripts
+2026-06-24T18:08:58.5337924Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-24T18:08:58.5346974Z ##[group]Run actions/checkout@v4
+2026-06-24T18:08:58.5347725Z with:
+2026-06-24T18:08:58.5348187Z   repository: kelvinkbk/Theonix-OS
+2026-06-24T18:08:58.5353094Z   token: ***
+2026-06-24T18:08:58.5353556Z   ssh-strict: true
+2026-06-24T18:08:58.5354008Z   ssh-user: git
+2026-06-24T18:08:58.5354474Z   persist-credentials: true
+2026-06-24T18:08:58.5354987Z   clean: true
+2026-06-24T18:08:58.5355448Z   sparse-checkout-cone-mode: true
+2026-06-24T18:08:58.5355991Z   fetch-depth: 1
+2026-06-24T18:08:58.5356543Z   fetch-tags: false
+2026-06-24T18:08:58.5356992Z   show-progress: true
+2026-06-24T18:08:58.5357457Z   lfs: false
+2026-06-24T18:08:58.5357931Z   submodules: false
+2026-06-24T18:08:58.5358398Z   set-safe-directory: true
+2026-06-24T18:08:58.5359187Z ##[endgroup]
+2026-06-24T18:08:58.6367333Z Syncing repository: kelvinkbk/Theonix-OS
+2026-06-24T18:08:58.6369629Z ##[group]Getting Git version info
+2026-06-24T18:08:58.6370881Z Working directory is '/home/runner/work/Theonix-OS/Theonix-OS'
+2026-06-24T18:08:58.6372029Z [command]/usr/bin/git version
+2026-06-24T18:08:58.6418895Z git version 2.54.0
+2026-06-24T18:08:58.6479628Z ##[endgroup]
+2026-06-24T18:08:58.6496938Z Temporarily overriding HOME='/home/runner/work/_temp/424579f2-dab2-4a5e-94fe-2e0739d89865' before making global git config changes
+2026-06-24T18:08:58.6498439Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-24T18:08:58.6502400Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Theonix-OS/Theonix-OS
+2026-06-24T18:08:58.6554975Z Deleting the contents of '/home/runner/work/Theonix-OS/Theonix-OS'
+2026-06-24T18:08:58.6559362Z ##[group]Initializing the repository
+2026-06-24T18:08:58.6565057Z [command]/usr/bin/git init /home/runner/work/Theonix-OS/Theonix-OS
+2026-06-24T18:08:58.6663540Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-24T18:08:58.6665430Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-24T18:08:58.6666936Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-24T18:08:58.6668087Z hint: call:
+2026-06-24T18:08:58.6668810Z hint:
+2026-06-24T18:08:58.6669407Z hint: 	git config --global init.defaultBranch <name>
+2026-06-24T18:08:58.6670607Z hint:
+2026-06-24T18:08:58.6671496Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-24T18:08:58.6672565Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-24T18:08:58.6673602Z hint:
+2026-06-24T18:08:58.6674083Z hint: 	git branch -m <name>
+2026-06-24T18:08:58.6674687Z hint:
+2026-06-24T18:08:58.6675344Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-24T18:08:58.6681766Z Initialized empty Git repository in /home/runner/work/Theonix-OS/Theonix-OS/.git/
+2026-06-24T18:08:58.6693997Z [command]/usr/bin/git remote add origin https://github.com/kelvinkbk/Theonix-OS
+2026-06-24T18:08:58.6736600Z ##[endgroup]
+2026-06-24T18:08:58.6737418Z ##[group]Disabling automatic garbage collection
+2026-06-24T18:08:58.6742189Z [command]/usr/bin/git config --local gc.auto 0
+2026-06-24T18:08:58.6772308Z ##[endgroup]
+2026-06-24T18:08:58.6773639Z ##[group]Setting up auth
+2026-06-24T18:08:58.6780093Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-24T18:08:58.6813061Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-24T18:08:58.7206941Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-24T18:08:58.7236644Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-24T18:08:58.7456254Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-24T18:08:58.7488270Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-24T18:08:58.7706492Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-24T18:08:58.7741000Z ##[endgroup]
+2026-06-24T18:08:58.7741989Z ##[group]Fetching the repository
+2026-06-24T18:08:58.7750387Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b010432ea005dda13bfcf73dd5c7d99a6bbd3d91:refs/remotes/origin/main
+2026-06-24T18:08:59.3864500Z From https://github.com/kelvinkbk/Theonix-OS
+2026-06-24T18:08:59.3866879Z  * [new ref]         b010432ea005dda13bfcf73dd5c7d99a6bbd3d91 -> origin/main
+2026-06-24T18:08:59.3914080Z ##[endgroup]
+2026-06-24T18:08:59.3914986Z ##[group]Determining the checkout info
+2026-06-24T18:08:59.3916333Z ##[endgroup]
+2026-06-24T18:08:59.3917407Z [command]/usr/bin/git sparse-checkout disable
+2026-06-24T18:08:59.3966409Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-24T18:08:59.3997110Z ##[group]Checking out the ref
+2026-06-24T18:08:59.4000947Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-06-24T18:08:59.4628861Z Switched to a new branch 'main'
+2026-06-24T18:08:59.4631744Z branch 'main' set up to track 'origin/main'.
+2026-06-24T18:08:59.4640087Z ##[endgroup]
+2026-06-24T18:08:59.4684903Z [command]/usr/bin/git log -1 --format=%H
+2026-06-24T18:08:59.4707320Z b010432ea005dda13bfcf73dd5c7d99a6bbd3d91
+2026-06-24T18:08:59.4928794Z ##[group]Run find . -name "*.sh" -not -path "*/node_modules/*" -print0 | xargs -0 shellcheck --severity=warning
+2026-06-24T18:08:59.4930919Z [36;1mfind . -name "*.sh" -not -path "*/node_modules/*" -print0 | xargs -0 shellcheck --severity=warning[0m
+2026-06-24T18:08:59.5093019Z shell: /usr/bin/bash -e {0}
+2026-06-24T18:08:59.5093680Z ##[endgroup]
+2026-06-24T18:09:02.9759435Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-24T18:09:02.9761314Z Post job cleanup.
+2026-06-24T18:09:03.0585076Z [command]/usr/bin/git version
+2026-06-24T18:09:03.0654941Z git version 2.54.0
+2026-06-24T18:09:03.0692822Z Temporarily overriding HOME='/home/runner/work/_temp/133aa3cf-40b2-455b-aa39-00556907a9ad' before making global git config changes
+2026-06-24T18:09:03.0693935Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-24T18:09:03.0698455Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Theonix-OS/Theonix-OS
+2026-06-24T18:09:03.0734358Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-24T18:09:03.0770677Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-24T18:09:03.0986837Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-24T18:09:03.1011917Z http.https://github.com/.extraheader
+2026-06-24T18:09:03.1021876Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-06-24T18:09:03.1051257Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-24T18:09:03.1267188Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-24T18:09:03.1297671Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-24T18:09:03.1640829Z Cleaning up orphan processes
+2026-06-24T18:09:03.2019434Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

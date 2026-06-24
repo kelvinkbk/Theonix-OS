@@ -1,0 +1,73 @@
+﻿2026-06-24T18:09:00.4952746Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-24T18:09:00.4962307Z ##[group]Run actions/checkout@v4
+2026-06-24T18:09:00.4963186Z with:
+2026-06-24T18:09:00.4963943Z   repository: kelvinkbk/Theonix-OS
+2026-06-24T18:09:00.4968971Z   token: ***
+2026-06-24T18:09:00.4969453Z   ssh-strict: true
+2026-06-24T18:09:00.4969927Z   ssh-user: git
+2026-06-24T18:09:00.4970412Z   persist-credentials: true
+2026-06-24T18:09:00.4970943Z   clean: true
+2026-06-24T18:09:00.4971420Z   sparse-checkout-cone-mode: true
+2026-06-24T18:09:00.4971982Z   fetch-depth: 1
+2026-06-24T18:09:00.4972456Z   fetch-tags: false
+2026-06-24T18:09:00.4972939Z   show-progress: true
+2026-06-24T18:09:00.4973863Z   lfs: false
+2026-06-24T18:09:00.4974370Z   submodules: false
+2026-06-24T18:09:00.4975148Z   set-safe-directory: true
+2026-06-24T18:09:00.4976175Z ##[endgroup]
+2026-06-24T18:09:00.5996252Z Syncing repository: kelvinkbk/Theonix-OS
+2026-06-24T18:09:00.5998575Z ##[group]Getting Git version info
+2026-06-24T18:09:00.5999712Z Working directory is '/home/runner/work/Theonix-OS/Theonix-OS'
+2026-06-24T18:09:00.6000876Z [command]/usr/bin/git version
+2026-06-24T18:09:00.6070349Z git version 2.54.0
+2026-06-24T18:09:00.6093989Z ##[endgroup]
+2026-06-24T18:09:00.6110075Z Temporarily overriding HOME='/home/runner/work/_temp/8a0342ac-6cba-47f1-bde7-af65a3a45a2b' before making global git config changes
+2026-06-24T18:09:00.6112144Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-24T18:09:00.6115973Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Theonix-OS/Theonix-OS
+2026-06-24T18:09:00.6168827Z Deleting the contents of '/home/runner/work/Theonix-OS/Theonix-OS'
+2026-06-24T18:09:00.6173740Z ##[group]Initializing the repository
+2026-06-24T18:09:00.6179381Z [command]/usr/bin/git init /home/runner/work/Theonix-OS/Theonix-OS
+2026-06-24T18:09:00.6285355Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-24T18:09:00.6286662Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-24T18:09:00.6287717Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-24T18:09:00.6288535Z hint: call:
+2026-06-24T18:09:00.6289343Z hint:
+2026-06-24T18:09:00.6289958Z hint: 	git config --global init.defaultBranch <name>
+2026-06-24T18:09:00.6290643Z hint:
+2026-06-24T18:09:00.6291574Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-24T18:09:00.6293079Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-24T18:09:00.6294344Z hint:
+2026-06-24T18:09:00.6294854Z hint: 	git branch -m <name>
+2026-06-24T18:09:00.6295395Z hint:
+2026-06-24T18:09:00.6296187Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-24T18:09:00.6303726Z Initialized empty Git repository in /home/runner/work/Theonix-OS/Theonix-OS/.git/
+2026-06-24T18:09:00.6316746Z [command]/usr/bin/git remote add origin https://github.com/kelvinkbk/Theonix-OS
+2026-06-24T18:09:00.6363093Z ##[endgroup]
+2026-06-24T18:09:00.6364981Z ##[group]Disabling automatic garbage collection
+2026-06-24T18:09:00.6367809Z [command]/usr/bin/git config --local gc.auto 0
+2026-06-24T18:09:00.6401386Z ##[endgroup]
+2026-06-24T18:09:00.6403781Z ##[group]Setting up auth
+2026-06-24T18:09:00.6409013Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-24T18:09:00.6443667Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-24T18:09:00.6779942Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-24T18:09:00.6815240Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-24T18:09:00.7040884Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-24T18:09:00.7075634Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-24T18:09:00.7304745Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-24T18:09:00.7341774Z ##[endgroup]
+2026-06-24T18:09:00.7343717Z ##[group]Fetching the repository
+2026-06-24T18:09:00.7353061Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b010432ea005dda13bfcf73dd5c7d99a6bbd3d91:refs/remotes/origin/main
+2026-06-24T18:09:01.3404494Z From https://github.com/kelvinkbk/Theonix-OS
+2026-06-24T18:09:01.3406176Z  * [new ref]         b010432ea005dda13bfcf73dd5c7d99a6bbd3d91 -> origin/main
+2026-06-24T18:09:01.3441819Z ##[endgroup]
+2026-06-24T18:09:01.3443811Z ##[group]Determining the checkout info
+2026-06-24T18:09:01.3445516Z ##[endgroup]
+2026-06-24T18:09:01.3449726Z [command]/usr/bin/git sparse-checkout disable
+2026-06-24T18:09:01.3494425Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-24T18:09:01.3522463Z ##[group]Checking out the ref
+2026-06-24T18:09:01.3526357Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-06-24T18:09:01.4175311Z Switched to a new branch 'main'
+2026-06-24T18:09:01.4177182Z branch 'main' set up to track 'origin/main'.
+2026-06-24T18:09:01.4187901Z ##[endgroup]
+2026-06-24T18:09:01.4230749Z [command]/usr/bin/git log -1 --format=%H
+2026-06-24T18:09:01.4254773Z b010432ea005dda13bfcf73dd5c7d99a6bbd3d91

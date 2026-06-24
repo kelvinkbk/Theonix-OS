@@ -1,0 +1,500 @@
+﻿2026-06-24T18:09:02.7674935Z ##[group]Run cargo fmt --all -- --check
+2026-06-24T18:09:02.7675382Z [36;1mcargo fmt --all -- --check[0m
+2026-06-24T18:09:02.7711732Z shell: /usr/bin/bash -e {0}
+2026-06-24T18:09:02.7712054Z env:
+2026-06-24T18:09:02.7712305Z   CARGO_HOME: /home/runner/.cargo
+2026-06-24T18:09:02.7712617Z   CARGO_INCREMENTAL: 0
+2026-06-24T18:09:02.7712889Z   CARGO_TERM_COLOR: always
+2026-06-24T18:09:02.7713168Z   CACHE_ON_FAILURE: false
+2026-06-24T18:09:02.7713875Z ##[endgroup]
+2026-06-24T18:09:03.2930645Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/config.rs:48:
+2026-06-24T18:09:03.2931474Z              .join("ai");
+2026-06-24T18:09:03.2931876Z  
+2026-06-24T18:09:03.2932187Z          Self {
+2026-06-24T18:09:03.2932713Z -            ollama_url:              "http://127.0.0.1:11434".to_string(),
+2026-06-24T18:09:03.2933679Z -            default_model:           "llama3:8b".to_string(),
+2026-06-24T18:09:03.2934343Z -            idle_timeout_secs:       600, // 10 minutes
+2026-06-24T18:09:03.2935194Z -            memory_db_path:          data_dir.join("memory.db"),
+2026-06-24T18:09:03.2935953Z -            memory_max_turns:        100,
+2026-06-24T18:09:03.2936532Z -            whisper_model:           "base".to_string(),
+2026-06-24T18:09:03.2941684Z -            piper_voice_path:        PathBuf::from("/usr/share/theonix/models/piper/en_US-lessac-medium.onnx"),
+2026-06-24T18:09:03.2942786Z +            ollama_url: "http://127.0.0.1:11434".to_string(),
+2026-06-24T18:09:03.2943794Z +            default_model: "llama3:8b".to_string(),
+2026-06-24T18:09:03.2944351Z +            idle_timeout_secs: 600, // 10 minutes
+2026-06-24T18:09:03.2944939Z +            memory_db_path: data_dir.join("memory.db"),
+2026-06-24T18:09:03.2945471Z +            memory_max_turns: 100,
+2026-06-24T18:09:03.2945956Z +            whisper_model: "base".to_string(),
+2026-06-24T18:09:03.2946515Z +            piper_voice_path: PathBuf::from(
+2026-06-24T18:09:03.2947155Z +                "/usr/share/theonix/models/piper/en_US-lessac-medium.onnx",
+2026-06-24T18:09:03.2947842Z +            ),
+2026-06-24T18:09:03.2948365Z              default_permission_tier: 1, // suggest-only by default
+2026-06-24T18:09:03.2949425Z -            telemetry_enabled:       false,
+2026-06-24T18:09:03.2949922Z +            telemetry_enabled: false,
+2026-06-24T18:09:03.2950357Z          }
+2026-06-24T18:09:03.2950665Z      }
+2026-06-24T18:09:03.2950958Z  }
+2026-06-24T18:09:03.2969696Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:13:
+2026-06-24T18:09:03.2970652Z  /// Implements the org.theonix.AI D-Bus interface.
+2026-06-24T18:09:03.2971332Z  /// This is the primary interface for all AI operations.
+2026-06-24T18:09:03.2971970Z  pub struct AIInterface {
+2026-06-24T18:09:03.2972473Z -    config:        ThaidConfig,
+2026-06-24T18:09:03.2972915Z +    config: ThaidConfig,
+2026-06-24T18:09:03.2973570Z      model_manager: Arc<ModelManager>,
+2026-06-24T18:09:03.2974120Z -    memory:        Arc<RwLock<ConversationStore>>,
+2026-06-24T18:09:03.2974698Z +    memory: Arc<RwLock<ConversationStore>>,
+2026-06-24T18:09:03.2975206Z  }
+2026-06-24T18:09:03.2975532Z  
+2026-06-24T18:09:03.2975863Z  impl AIInterface {
+2026-06-24T18:09:03.2976588Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:22:
+2026-06-24T18:09:03.2977375Z      pub fn new(
+2026-06-24T18:09:03.2977771Z -        config:        ThaidConfig,
+2026-06-24T18:09:03.2978249Z +        config: ThaidConfig,
+2026-06-24T18:09:03.2978706Z          model_manager: Arc<ModelManager>,
+2026-06-24T18:09:03.2979227Z -        memory:        ConversationStore,
+2026-06-24T18:09:03.2979734Z +        memory: ConversationStore,
+2026-06-24T18:09:03.2980214Z      ) -> Self {
+2026-06-24T18:09:03.2980588Z          Self {
+2026-06-24T18:09:03.2980941Z              config,
+2026-06-24T18:09:03.2981582Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:45:
+2026-06-24T18:09:03.2982352Z      /// Returns: The AI's response text
+2026-06-24T18:09:03.2982780Z      async fn query(
+2026-06-24T18:09:03.2983772Z          &self,
+2026-06-24T18:09:03.2984102Z -        prompt:  String,
+2026-06-24T18:09:03.2984501Z +        prompt: String,
+2026-06-24T18:09:03.2985034Z          options: HashMap<String, zbus::zvariant::OwnedValue>,
+2026-06-24T18:09:03.2985677Z      ) -> zbus::fdo::Result<String> {
+2026-06-24T18:09:03.2986184Z          if prompt.trim().is_empty() {
+2026-06-24T18:09:03.2986946Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:52:
+2026-06-24T18:09:03.2987976Z -            return Err(zbus::fdo::Error::InvalidArgs("Prompt cannot be empty".into()));
+2026-06-24T18:09:03.2988823Z +            return Err(zbus::fdo::Error::InvalidArgs(
+2026-06-24T18:09:03.2989422Z +                "Prompt cannot be empty".into(),
+2026-06-24T18:09:03.2989921Z +            ));
+2026-06-24T18:09:03.2990280Z          }
+2026-06-24T18:09:03.2990629Z  
+2026-06-24T18:09:03.2991061Z          info!(prompt_len = prompt.len(), "Query received");
+2026-06-24T18:09:03.2991972Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:79:
+2026-06-24T18:09:03.2992750Z          };
+2026-06-24T18:09:03.2993075Z  
+2026-06-24T18:09:03.2993774Z          // Send to model manager (loads model lazily)
+2026-06-24T18:09:03.2994407Z -        let response = self.model_manager
+2026-06-24T18:09:03.2994928Z +        let response = self
+2026-06-24T18:09:03.2995368Z +            .model_manager
+2026-06-24T18:09:03.2995918Z              .query(&full_prompt, model_override.as_deref())
+2026-06-24T18:09:03.2996524Z              .await
+2026-06-24T18:09:03.2996904Z              .map_err(|e| {
+2026-06-24T18:09:03.2997591Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:105:
+2026-06-24T18:09:03.2998739Z      ///   "model_state"  — "unloaded" | "loading" | "ready"
+2026-06-24T18:09:03.2999483Z      ///   "model_name"   — current model name (or empty string)
+2026-06-24T18:09:03.3000186Z      ///   "version"      — thaid version string
+2026-06-24T18:09:03.3000725Z -    async fn get_status(
+2026-06-24T18:09:03.3001161Z -        &self,
+2026-06-24T18:09:03.3001989Z -    ) -> zbus::fdo::Result<HashMap<String, String>> {
+2026-06-24T18:09:03.3002775Z +    async fn get_status(&self) -> zbus::fdo::Result<HashMap<String, String>> {
+2026-06-24T18:09:03.3003885Z          let state = self.model_manager.get_state().await;
+2026-06-24T18:09:03.3004443Z  
+2026-06-24T18:09:03.3004817Z          let (state_str, model_name) = match &state {
+2026-06-24T18:09:03.3005976Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:114:
+2026-06-24T18:09:03.3007262Z -            crate::models::ModelState::Unloaded  => ("unloaded".to_string(), String::new()),
+2026-06-24T18:09:03.3008153Z -            crate::models::ModelState::Loading   => ("loading".to_string(),  String::new()),
+2026-06-24T18:09:03.3009148Z +            crate::models::ModelState::Unloaded => ("unloaded".to_string(), String::new()),
+2026-06-24T18:09:03.3010107Z +            crate::models::ModelState::Loading => ("loading".to_string(), String::new()),
+2026-06-24T18:09:03.3011092Z              crate::models::ModelState::Ready { name } => ("ready".to_string(), name.clone()),
+2026-06-24T18:09:03.3011810Z          };
+2026-06-24T18:09:03.3012106Z  
+2026-06-24T18:09:03.3012675Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:119:
+2026-06-24T18:09:03.3013671Z          let mut status = HashMap::new();
+2026-06-24T18:09:03.3014243Z          status.insert("model_state".to_string(), state_str);
+2026-06-24T18:09:03.3014919Z -        status.insert("model_name".to_string(),  model_name);
+2026-06-24T18:09:03.3015762Z -        status.insert("version".to_string(),      env!("CARGO_PKG_VERSION").to_string());
+2026-06-24T18:09:03.3016793Z -        status.insert("default_model".to_string(), self.config.default_model.clone());
+2026-06-24T18:09:03.3017659Z +        status.insert("model_name".to_string(), model_name);
+2026-06-24T18:09:03.3018480Z +        status.insert("version".to_string(), env!("CARGO_PKG_VERSION").to_string());
+2026-06-24T18:09:03.3019474Z +        status.insert(
+2026-06-24T18:09:03.3019994Z +            "default_model".to_string(),
+2026-06-24T18:09:03.3020544Z +            self.config.default_model.clone(),
+2026-06-24T18:09:03.3021054Z +        );
+2026-06-24T18:09:03.3021371Z  
+2026-06-24T18:09:03.3021680Z          Ok(status)
+2026-06-24T18:09:03.3022042Z      }
+2026-06-24T18:09:03.3022661Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:129:
+2026-06-24T18:09:03.3023865Z      async fn new_session(&self) -> zbus::fdo::Result<String> {
+2026-06-24T18:09:03.3024570Z          let session_id = Uuid::new_v4().to_string();
+2026-06-24T18:09:03.3025118Z          let mut memory = self.memory.write().await;
+2026-06-24T18:09:03.3025709Z -        memory.create_session(&session_id).await
+2026-06-24T18:09:03.3026220Z +        memory
+2026-06-24T18:09:03.3026588Z +            .create_session(&session_id)
+2026-06-24T18:09:03.3027053Z +            .await
+2026-06-24T18:09:03.3027675Z              .map_err(|e| zbus::fdo::Error::Failed(format!("Failed to create session: {e}")))?;
+2026-06-24T18:09:03.3028561Z          info!(session_id = %session_id, "New AI session created");
+2026-06-24T18:09:03.3029171Z          Ok(session_id)
+2026-06-24T18:09:03.3029821Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/dbus/ai_interface.rs:138:
+2026-06-24T18:09:03.3030681Z      /// Delete a conversation session and all its history.
+2026-06-24T18:09:03.3031461Z      async fn delete_session(&self, session_id: String) -> zbus::fdo::Result<()> {
+2026-06-24T18:09:03.3032242Z          let mut memory = self.memory.write().await;
+2026-06-24T18:09:03.3032598Z -        memory.delete_session(&session_id).await
+2026-06-24T18:09:03.3032893Z +        memory
+2026-06-24T18:09:03.3033110Z +            .delete_session(&session_id)
+2026-06-24T18:09:03.3033738Z +            .await
+2026-06-24T18:09:03.3034121Z              .map_err(|e| zbus::fdo::Error::Failed(format!("Failed to delete session: {e}")))?;
+2026-06-24T18:09:03.3034714Z          info!(session_id = %session_id, "Session deleted");
+2026-06-24T18:09:03.3035303Z          Ok(())
+2026-06-24T18:09:03.3035945Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/hardware/mod.rs:21:
+2026-06-24T18:09:03.3036394Z  impl std::fmt::Display for GpuBackend {
+2026-06-24T18:09:03.3036770Z      fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+2026-06-24T18:09:03.3037122Z          match self {
+2026-06-24T18:09:03.3037376Z -            GpuBackend::Cuda    => write!(f, "cuda"),
+2026-06-24T18:09:03.3037701Z -            GpuBackend::Rocm    => write!(f, "rocm"),
+2026-06-24T18:09:03.3038018Z -            GpuBackend::Sycl    => write!(f, "sycl"),
+2026-06-24T18:09:03.3038334Z +            GpuBackend::Cuda => write!(f, "cuda"),
+2026-06-24T18:09:03.3038648Z +            GpuBackend::Rocm => write!(f, "rocm"),
+2026-06-24T18:09:03.3038957Z +            GpuBackend::Sycl => write!(f, "sycl"),
+2026-06-24T18:09:03.3039285Z              GpuBackend::CpuOnly => write!(f, "cpu-only"),
+2026-06-24T18:09:03.3039589Z          }
+2026-06-24T18:09:03.3039770Z      }
+2026-06-24T18:09:03.3040111Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/hardware/mod.rs:32:
+2026-06-24T18:09:03.3040599Z  /// System hardware information relevant to AI performance.
+2026-06-24T18:09:03.3040950Z  #[derive(Debug, Clone)]
+2026-06-24T18:09:03.3041192Z  pub struct HardwareInfo {
+2026-06-24T18:09:03.3041442Z -    pub gpu_backend:  GpuBackend,
+2026-06-24T18:09:03.3041718Z +    pub gpu_backend: GpuBackend,
+2026-06-24T18:09:03.3041970Z      pub total_ram_mb: u64,
+2026-06-24T18:09:03.3042210Z -    pub cpu_count:    usize,
+2026-06-24T18:09:03.3042458Z -    pub cpu_name:     String,
+2026-06-24T18:09:03.3042699Z +    pub cpu_count: usize,
+2026-06-24T18:09:03.3042927Z +    pub cpu_name: String,
+2026-06-24T18:09:03.3043142Z  }
+2026-06-24T18:09:03.3043607Z  
+2026-06-24T18:09:03.3043803Z  impl HardwareInfo {
+2026-06-24T18:09:03.3044157Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/hardware/mod.rs:42:
+2026-06-24T18:09:03.3044755Z      /// Detect GPU and memory at startup.
+2026-06-24T18:09:03.3045235Z      /// This is a best-effort detection — never fails.
+2026-06-24T18:09:03.3045578Z      pub fn detect() -> Self {
+2026-06-24T18:09:03.3045870Z -        let gpu_backend  = detect_gpu_backend();
+2026-06-24T18:09:03.3046202Z +        let gpu_backend = detect_gpu_backend();
+2026-06-24T18:09:03.3046535Z          let (ram, cpus, cpu_name) = detect_system_info();
+2026-06-24T18:09:03.3046835Z  
+2026-06-24T18:09:03.3047017Z          let info = Self {
+2026-06-24T18:09:03.3047378Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/hardware/mod.rs:49:
+2026-06-24T18:09:03.3047781Z              gpu_backend,
+2026-06-24T18:09:03.3048012Z              total_ram_mb: ram,
+2026-06-24T18:09:03.3048259Z -            cpu_count:    cpus,
+2026-06-24T18:09:03.3048504Z +            cpu_count: cpus,
+2026-06-24T18:09:03.3048731Z              cpu_name,
+2026-06-24T18:09:03.3049264Z          };
+2026-06-24T18:09:03.3049555Z  
+2026-06-24T18:09:03.3049961Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/hardware/mod.rs:75:
+2026-06-24T18:09:03.3050629Z          let has_gpu = self.gpu_backend != GpuBackend::CpuOnly;
+2026-06-24T18:09:03.3051076Z          match (has_gpu, self.total_ram_mb) {
+2026-06-24T18:09:03.3051510Z              (true, ram) if ram >= 16_384 => "llama3:8b",
+2026-06-24T18:09:03.3051975Z -            (true, ram) if ram >= 8_192  => "llama3:8b",
+2026-06-24T18:09:03.3052389Z +            (true, ram) if ram >= 8_192 => "llama3:8b",
+2026-06-24T18:09:03.3052851Z              (false, ram) if ram >= 16_384 => "llama3:8b",
+2026-06-24T18:09:03.3053528Z -            (false, ram) if ram >= 8_192  => "phi3:mini",
+2026-06-24T18:09:03.3054093Z -            _                             => "gemma:2b",
+2026-06-24T18:09:03.3054531Z +            (false, ram) if ram >= 8_192 => "phi3:mini",
+2026-06-24T18:09:03.3054920Z +            _ => "gemma:2b",
+2026-06-24T18:09:03.3111259Z          }
+2026-06-24T18:09:03.3111611Z      }
+2026-06-24T18:09:03.3111947Z  }
+2026-06-24T18:09:03.3112478Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/hardware/mod.rs:134:
+2026-06-24T18:09:03.3113469Z      sys.refresh_all();
+2026-06-24T18:09:03.3113775Z  
+2026-06-24T18:09:03.3114031Z      let total_ram_mb = sys.total_memory() / 1024 / 1024;
+2026-06-24T18:09:03.3114383Z -    let cpu_count    = sys.cpus().len();
+2026-06-24T18:09:03.3114682Z -    let cpu_name     = sys.cpus()
+2026-06-24T18:09:03.3114965Z +    let cpu_count = sys.cpus().len();
+2026-06-24T18:09:03.3115243Z +    let cpu_name = sys
+2026-06-24T18:09:03.3115464Z +        .cpus()
+2026-06-24T18:09:03.3115676Z          .first()
+2026-06-24T18:09:03.3115908Z          .map(|c| c.brand().to_string())
+2026-06-24T18:09:03.3116228Z          .unwrap_or_else(|| "Unknown CPU".to_string());
+2026-06-24T18:09:03.3116648Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/main.rs:31:
+2026-06-24T18:09:03.3117036Z  async fn main() -> Result<()> {
+2026-06-24T18:09:03.3117400Z      // ---- Logging setup -----------------------------------------------------
+2026-06-24T18:09:03.3117922Z      // Use journald when running under systemd, otherwise pretty-print to stderr
+2026-06-24T18:09:03.3118444Z -    let use_journald = std::env::var("JOURNAL_STREAM").is_ok()
+2026-06-24T18:09:03.3118824Z -        || std::env::var("INVOCATION_ID").is_ok();
+2026-06-24T18:09:03.3119127Z +    let use_journald =
+2026-06-24T18:09:03.3119491Z +        std::env::var("JOURNAL_STREAM").is_ok() || std::env::var("INVOCATION_ID").is_ok();
+2026-06-24T18:09:03.3119938Z  
+2026-06-24T18:09:03.3120129Z      if use_journald {
+2026-06-24T18:09:03.3120405Z          // Log to systemd journal with structured fields
+2026-06-24T18:09:03.3120831Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/main.rs:39:
+2026-06-24T18:09:03.3121249Z -        let journald_layer = tracing_journald::layer()
+2026-06-24T18:09:03.3121596Z -            .context("Failed to connect to journald")?;
+2026-06-24T18:09:03.3122079Z +        let journald_layer = tracing_journald::layer().context("Failed to connect to journald")?;
+2026-06-24T18:09:03.3122724Z          tracing_subscriber::registry()
+2026-06-24T18:09:03.3123064Z -            .with(EnvFilter::from_default_env().add_directive(
+2026-06-24T18:09:03.3123734Z -                "thaid=info".parse().expect("valid directive"),
+2026-06-24T18:09:03.3124063Z -            ))
+2026-06-24T18:09:03.3124267Z +            .with(
+2026-06-24T18:09:03.3124502Z +                EnvFilter::from_default_env()
+2026-06-24T18:09:03.3124891Z +                    .add_directive("thaid=info".parse().expect("valid directive")),
+2026-06-24T18:09:03.3125262Z +            )
+2026-06-24T18:09:03.3125468Z              .with(journald_layer)
+2026-06-24T18:09:03.3125718Z              .init();
+2026-06-24T18:09:03.3125928Z      } else {
+2026-06-24T18:09:03.3126229Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/main.rs:48:
+2026-06-24T18:09:03.3126659Z          // Pretty-print for development / interactive use
+2026-06-24T18:09:03.3126998Z          tracing_subscriber::registry()
+2026-06-24T18:09:03.3127339Z -            .with(EnvFilter::from_default_env().add_directive(
+2026-06-24T18:09:03.3127723Z -                "thaid=debug".parse().expect("valid directive"),
+2026-06-24T18:09:03.3128042Z -            ))
+2026-06-24T18:09:03.3128240Z +            .with(
+2026-06-24T18:09:03.3128473Z +                EnvFilter::from_default_env()
+2026-06-24T18:09:03.3128864Z +                    .add_directive("thaid=debug".parse().expect("valid directive")),
+2026-06-24T18:09:03.3129235Z +            )
+2026-06-24T18:09:03.3129466Z              .with(fmt::layer().with_target(false))
+2026-06-24T18:09:03.3129755Z              .init();
+2026-06-24T18:09:03.3129956Z      }
+2026-06-24T18:09:03.3130251Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/main.rs:60:
+2026-06-24T18:09:03.3130612Z      );
+2026-06-24T18:09:03.3130792Z  
+2026-06-24T18:09:03.3131079Z      // ---- Configuration -----------------------------------------------------
+2026-06-24T18:09:03.3131486Z -    let config = config::ThaidConfig::load()
+2026-06-24T18:09:03.3131832Z -        .context("Failed to load thaid configuration")?;
+2026-06-24T18:09:03.3132486Z +    let config = config::ThaidConfig::load().context("Failed to load thaid configuration")?;
+2026-06-24T18:09:03.3132921Z  
+2026-06-24T18:09:03.3133093Z      info!(
+2026-06-24T18:09:03.3133545Z          ollama_url = %config.ollama_url,
+2026-06-24T18:09:03.3133941Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/main.rs:84:
+2026-06-24T18:09:03.3134388Z          .context("Failed to open conversation memory database")?;
+2026-06-24T18:09:03.3134721Z  
+2026-06-24T18:09:03.3135003Z      // ---- Model manager (lazy loading) -------------------------------------
+2026-06-24T18:09:03.3135416Z -    let model_manager = std::sync::Arc::new(
+2026-06-24T18:09:03.3135715Z -        models::ModelManager::new(
+2026-06-24T18:09:03.3135990Z -            config.ollama_url.clone(),
+2026-06-24T18:09:03.3136274Z -            config.default_model.clone(),
+2026-06-24T18:09:03.3136626Z -            std::time::Duration::from_secs(config.idle_timeout_secs),
+2026-06-24T18:09:03.3136973Z -        )
+2026-06-24T18:09:03.3137157Z -    );
+2026-06-24T18:09:03.3137442Z +    let model_manager = std::sync::Arc::new(models::ModelManager::new(
+2026-06-24T18:09:03.3137815Z +        config.ollama_url.clone(),
+2026-06-24T18:09:03.3138088Z +        config.default_model.clone(),
+2026-06-24T18:09:03.3138420Z +        std::time::Duration::from_secs(config.idle_timeout_secs),
+2026-06-24T18:09:03.3138745Z +    ));
+2026-06-24T18:09:03.3138920Z  
+2026-06-24T18:09:03.3139355Z      // Start the idle watcher — unloads model after inactivity
+2026-06-24T18:09:03.3139717Z      let mgr_clone = model_manager.clone();
+2026-06-24T18:09:03.3140106Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/main.rs:105:
+2026-06-24T18:09:03.3140726Z          .context("Cannot acquire D-Bus name org.theonix.AI — another instance may be running")?
+2026-06-24T18:09:03.3141171Z          .serve_at(
+2026-06-24T18:09:03.3141386Z              "/org/theonix/AI",
+2026-06-24T18:09:03.3141799Z -            dbus::AIInterface::new(
+2026-06-24T18:09:03.3142073Z -                config.clone(),
+2026-06-24T18:09:03.3142334Z -                model_manager.clone(),
+2026-06-24T18:09:03.3142599Z -                memory,
+2026-06-24T18:09:03.3142816Z -            ),
+2026-06-24T18:09:03.3143149Z +            dbus::AIInterface::new(config.clone(), model_manager.clone(), memory),
+2026-06-24T18:09:03.3143786Z          )
+2026-06-24T18:09:03.3144038Z          .context("Failed to register D-Bus object")?
+2026-06-24T18:09:03.3144337Z          .build()
+2026-06-24T18:09:03.3144671Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:30:
+2026-06-24T18:09:03.3145206Z          conn.execute_batch("PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;")?;
+2026-06-24T18:09:03.3145613Z  
+2026-06-24T18:09:03.3145816Z          // Schema migration (idempotent)
+2026-06-24T18:09:03.3146104Z -        conn.execute_batch("
+2026-06-24T18:09:03.3146355Z +        conn.execute_batch(
+2026-06-24T18:09:03.3146595Z +            "
+2026-06-24T18:09:03.3146828Z              CREATE TABLE IF NOT EXISTS sessions (
+2026-06-24T18:09:03.3147136Z                  id         TEXT PRIMARY KEY,
+2026-06-24T18:09:03.3147496Z                  created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+2026-06-24T18:09:03.3147988Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:46:
+2026-06-24T18:09:03.3148372Z              );
+2026-06-24T18:09:03.3148561Z  
+2026-06-24T18:09:03.3148886Z              CREATE INDEX IF NOT EXISTS idx_turns_session ON turns(session_id, created_at);
+2026-06-24T18:09:03.3149292Z -        ")?;
+2026-06-24T18:09:03.3149482Z +        ",
+2026-06-24T18:09:03.3149665Z +        )?;
+2026-06-24T18:09:03.3149850Z  
+2026-06-24T18:09:03.3150162Z          info!(path = %path.display(), "Conversation memory database opened");
+2026-06-24T18:09:03.3150568Z -        Ok(Self { conn: Mutex::new(conn) })
+2026-06-24T18:09:03.3150845Z +        Ok(Self {
+2026-06-24T18:09:03.3151067Z +            conn: Mutex::new(conn),
+2026-06-24T18:09:03.3151469Z +        })
+2026-06-24T18:09:03.3151652Z      }
+2026-06-24T18:09:03.3151830Z  
+2026-06-24T18:09:03.3152035Z      /// Create a new conversation session.
+2026-06-24T18:09:03.3152430Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:58:
+2026-06-24T18:09:03.3152823Z          conn.execute(
+2026-06-24T18:09:03.3153100Z              "INSERT OR IGNORE INTO sessions (id) VALUES (?1)",
+2026-06-24T18:09:03.3153787Z              params![session_id],
+2026-06-24T18:09:03.3154230Z -        ).context("Failed to create session")?;
+2026-06-24T18:09:03.3154525Z +        )
+2026-06-24T18:09:03.3154748Z +        .context("Failed to create session")?;
+2026-06-24T18:09:03.3155063Z          debug!(session_id, "Session created");
+2026-06-24T18:09:03.3155350Z          Ok(())
+2026-06-24T18:09:03.3155540Z      }
+2026-06-24T18:09:03.3155856Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:101:
+2026-06-24T18:09:03.3156248Z  
+2026-06-24T18:09:03.3156566Z      /// Build a context-aware prompt by prepending recent conversation history.
+2026-06-24T18:09:03.3157049Z      /// Returns a formatted string suitable for sending to Ollama.
+2026-06-24T18:09:03.3157414Z -    pub async fn build_context_prompt(
+2026-06-24T18:09:03.3157682Z -        &self,
+2026-06-24T18:09:03.3157886Z -        session_id: &str,
+2026-06-24T18:09:03.3158119Z -        new_prompt: &str,
+2026-06-24T18:09:03.3158351Z -    ) -> Result<String> {
+2026-06-24T18:09:03.3158775Z +    pub async fn build_context_prompt(&self, session_id: &str, new_prompt: &str) -> Result<String> {
+2026-06-24T18:09:03.3159267Z          let conn = self.conn.lock().unwrap();
+2026-06-24T18:09:03.3159540Z  
+2026-06-24T18:09:03.3159791Z          // Get the last N turns (most recent first, then reverse)
+2026-06-24T18:09:03.3160249Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:113:
+2026-06-24T18:09:03.3160661Z              "SELECT role, content FROM turns
+2026-06-24T18:09:03.3161153Z               WHERE session_id = ?1
+2026-06-24T18:09:03.3161425Z               ORDER BY created_at DESC
+2026-06-24T18:09:03.3161692Z -             LIMIT 20"
+2026-06-24T18:09:03.3161910Z +             LIMIT 20",
+2026-06-24T18:09:03.3162123Z          )?;
+2026-06-24T18:09:03.3162305Z  
+2026-06-24T18:09:03.3162659Z -        let turns: Vec<(String, String)> = stmt.query_map(params![session_id], |row| {
+2026-06-24T18:09:03.3163084Z -            Ok((row.get(0)?, row.get(1)?))
+2026-06-24T18:09:03.3163641Z -        })?.filter_map(|r| r.ok()).collect();
+2026-06-24T18:09:03.3163961Z +        let turns: Vec<(String, String)> = stmt
+2026-06-24T18:09:03.3164357Z +            .query_map(params![session_id], |row| Ok((row.get(0)?, row.get(1)?)))?
+2026-06-24T18:09:03.3164750Z +            .filter_map(|r| r.ok())
+2026-06-24T18:09:03.3165009Z +            .collect();
+2026-06-24T18:09:03.3165222Z  
+2026-06-24T18:09:03.3165411Z          if turns.is_empty() {
+2026-06-24T18:09:03.3165691Z              return Ok(new_prompt.to_string());
+2026-06-24T18:09:03.3166106Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:128:
+2026-06-24T18:09:03.3166531Z          let mut context = String::new();
+2026-06-24T18:09:03.3166839Z          for (role, content) in turns.iter().rev() {
+2026-06-24T18:09:03.3167140Z              match role.as_str() {
+2026-06-24T18:09:03.3167472Z -                "user"      => context.push_str(&format!("User: {content}\n")),
+2026-06-24T18:09:03.3167901Z +                "user" => context.push_str(&format!("User: {content}\n")),
+2026-06-24T18:09:03.3168357Z                  "assistant" => context.push_str(&format!("Assistant: {content}\n")),
+2026-06-24T18:09:03.3168736Z                  _ => {}
+2026-06-24T18:09:03.3168949Z              }
+2026-06-24T18:09:03.3169266Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/memory/mod.rs:141:
+2026-06-24T18:09:03.3169672Z      /// Delete a session and all its turns.
+2026-06-24T18:09:03.3170053Z      pub async fn delete_session(&mut self, session_id: &str) -> Result<()> {
+2026-06-24T18:09:03.3170613Z          let conn = self.conn.lock().unwrap();
+2026-06-24T18:09:03.3170897Z -        conn.execute(
+2026-06-24T18:09:03.3171150Z -            "DELETE FROM sessions WHERE id = ?1",
+2026-06-24T18:09:03.3171456Z -            params![session_id],
+2026-06-24T18:09:03.3171738Z -        ).context("Failed to delete session")?;
+2026-06-24T18:09:03.3172131Z +        conn.execute("DELETE FROM sessions WHERE id = ?1", params![session_id])
+2026-06-24T18:09:03.3172546Z +            .context("Failed to delete session")?;
+2026-06-24T18:09:03.3172862Z          debug!(session_id, "Session deleted");
+2026-06-24T18:09:03.3173139Z          Ok(())
+2026-06-24T18:09:03.3173566Z      }
+2026-06-24T18:09:03.3397608Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:25:
+2026-06-24T18:09:03.3398948Z  /// Manages the Ollama model lifecycle: lazy loading and idle unloading.
+2026-06-24T18:09:03.3400022Z  /// All public methods are async and safe to call from concurrent tasks.
+2026-06-24T18:09:03.3400589Z  pub struct ModelManager {
+2026-06-24T18:09:03.3400925Z -    ollama_url:     String,
+2026-06-24T18:09:03.3401239Z -    default_model:  String,
+2026-06-24T18:09:03.3401547Z -    idle_timeout:   Duration,
+2026-06-24T18:09:03.3401889Z -    state:          Arc<RwLock<ModelState>>,
+2026-06-24T18:09:03.3402317Z -    last_used:      Arc<RwLock<Option<Instant>>>,
+2026-06-24T18:09:03.3402720Z -    http:           Client,
+2026-06-24T18:09:03.3403021Z +    ollama_url: String,
+2026-06-24T18:09:03.3403559Z +    default_model: String,
+2026-06-24T18:09:03.3403862Z +    idle_timeout: Duration,
+2026-06-24T18:09:03.3404179Z +    state: Arc<RwLock<ModelState>>,
+2026-06-24T18:09:03.3404604Z +    last_used: Arc<RwLock<Option<Instant>>>,
+2026-06-24T18:09:03.3404969Z +    http: Client,
+2026-06-24T18:09:03.3405222Z  }
+2026-06-24T18:09:03.3405448Z  
+2026-06-24T18:09:03.3405680Z  impl ModelManager {
+2026-06-24T18:09:03.3406141Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:37:
+2026-06-24T18:09:03.3407044Z -    pub fn new(
+2026-06-24T18:09:03.3407322Z -        ollama_url:    String,
+2026-06-24T18:09:03.3407639Z -        default_model: String,
+2026-06-24T18:09:03.3407952Z -        idle_timeout:  Duration,
+2026-06-24T18:09:03.3408264Z -    ) -> Self {
+2026-06-24T18:09:03.3408680Z +    pub fn new(ollama_url: String, default_model: String, idle_timeout: Duration) -> Self {
+2026-06-24T18:09:03.3409122Z          Self {
+2026-06-24T18:09:03.3409326Z              ollama_url,
+2026-06-24T18:09:03.3409557Z              default_model,
+2026-06-24T18:09:03.3409932Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:45:
+2026-06-24T18:09:03.3410350Z              idle_timeout,
+2026-06-24T18:09:03.3410676Z -            state:     Arc::new(RwLock::new(ModelState::Unloaded)),
+2026-06-24T18:09:03.3411087Z +            state: Arc::new(RwLock::new(ModelState::Unloaded)),
+2026-06-24T18:09:03.3411457Z              last_used: Arc::new(RwLock::new(None)),
+2026-06-24T18:09:03.3411776Z -            http:      Client::builder()
+2026-06-24T18:09:03.3412065Z +            http: Client::builder()
+2026-06-24T18:09:03.3412441Z                  .timeout(Duration::from_secs(300)) // long timeout for model pulls
+2026-06-24T18:09:03.3412826Z                  .build()
+2026-06-24T18:09:03.3413092Z                  .expect("Failed to build HTTP client"),
+2026-06-24T18:09:03.3413677Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:89:
+2026-06-24T18:09:03.3414095Z              Ok(()) => {
+2026-06-24T18:09:03.3414398Z                  info!(model = %model_name, "Model loaded successfully");
+2026-06-24T18:09:03.3414790Z                  let mut state = self.state.write().await;
+2026-06-24T18:09:03.3415181Z -                *state = ModelState::Ready { name: model_name.clone() };
+2026-06-24T18:09:03.3415556Z +                *state = ModelState::Ready {
+2026-06-24T18:09:03.3415863Z +                    name: model_name.clone(),
+2026-06-24T18:09:03.3416148Z +                };
+2026-06-24T18:09:03.3416382Z                  self.update_last_used().await;
+2026-06-24T18:09:03.3416832Z                  Ok(model_name)
+2026-06-24T18:09:03.3417069Z              }
+2026-06-24T18:09:03.3417406Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:108:
+2026-06-24T18:09:03.3417811Z  
+2026-06-24T18:09:03.3418002Z          #[derive(Serialize)]
+2026-06-24T18:09:03.3418269Z          struct OllamaRequest<'a> {
+2026-06-24T18:09:03.3418534Z -            model:  &'a str,
+2026-06-24T18:09:03.3418772Z +            model: &'a str,
+2026-06-24T18:09:03.3419005Z              prompt: &'a str,
+2026-06-24T18:09:03.3419239Z              stream: bool,
+2026-06-24T18:09:03.3419459Z          }
+2026-06-24T18:09:03.3419785Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:116:
+2026-06-24T18:09:03.3420200Z          #[derive(Deserialize)]
+2026-06-24T18:09:03.3420467Z          struct OllamaResponse {
+2026-06-24T18:09:03.3420722Z              response: String,
+2026-06-24T18:09:03.3420967Z -            done:     bool,
+2026-06-24T18:09:03.3421200Z +            done: bool,
+2026-06-24T18:09:03.3421413Z          }
+2026-06-24T18:09:03.3421591Z  
+2026-06-24T18:09:03.3421786Z          let request = OllamaRequest {
+2026-06-24T18:09:03.3422190Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:123:
+2026-06-24T18:09:03.3422607Z -            model:  &model_name,
+2026-06-24T18:09:03.3422862Z +            model: &model_name,
+2026-06-24T18:09:03.3423100Z              prompt,
+2026-06-24T18:09:03.3423447Z              stream: false,
+2026-06-24T18:09:03.3423675Z          };
+2026-06-24T18:09:03.3424006Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:127:
+2026-06-24T18:09:03.3424402Z  
+2026-06-24T18:09:03.3424594Z -        let resp = self.http
+2026-06-24T18:09:03.3424835Z +        let resp = self
+2026-06-24T18:09:03.3425060Z +            .http
+2026-06-24T18:09:03.3425327Z              .post(format!("{}/api/generate", self.ollama_url))
+2026-06-24T18:09:03.3425800Z              .json(&request)
+2026-06-24T18:09:03.3426035Z              .send()
+2026-06-24T18:09:03.3426379Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:157:
+2026-06-24T18:09:03.3426804Z          if let Some(model) = current_model {
+2026-06-24T18:09:03.3427142Z              info!(model = %model, "Unloading idle AI model");
+2026-06-24T18:09:03.3427501Z              // Call Ollama API to evict the model from memory
+2026-06-24T18:09:03.3427814Z -            let _ = self.http
+2026-06-24T18:09:03.3428050Z +            let _ = self
+2026-06-24T18:09:03.3428272Z +                .http
+2026-06-24T18:09:03.3428557Z                  .post(format!("{}/api/generate", self.ollama_url))
+2026-06-24T18:09:03.3428902Z                  .json(&serde_json::json!({
+2026-06-24T18:09:03.3429178Z                      "model":     model,
+2026-06-24T18:09:03.3429571Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:205:
+2026-06-24T18:09:03.3430042Z      async fn ollama_pull(&self, model: &str) -> Result<()> {
+2026-06-24T18:09:03.3430380Z          #[derive(Serialize)]
+2026-06-24T18:09:03.3430628Z          struct PullRequest<'a> {
+2026-06-24T18:09:03.3430883Z -            name:   &'a str,
+2026-06-24T18:09:03.3431114Z +            name: &'a str,
+2026-06-24T18:09:03.3431340Z              stream: bool,
+2026-06-24T18:09:03.3431555Z          }
+2026-06-24T18:09:03.3431733Z  
+2026-06-24T18:09:03.3432042Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/models/manager.rs:212:
+2026-06-24T18:09:03.3432443Z          self.http
+2026-06-24T18:09:03.3432697Z              .post(format!("{}/api/pull", self.ollama_url))
+2026-06-24T18:09:03.3433063Z -            .json(&PullRequest { name: model, stream: false })
+2026-06-24T18:09:03.3433512Z +            .json(&PullRequest {
+2026-06-24T18:09:03.3433766Z +                name: model,
+2026-06-24T18:09:03.3434009Z +                stream: false,
+2026-06-24T18:09:03.3434236Z +            })
+2026-06-24T18:09:03.3434439Z              .send()
+2026-06-24T18:09:03.3434640Z              .await
+2026-06-24T18:09:03.3435012Z              .context("Pull request to Ollama failed")?
+2026-06-24T18:09:03.3435450Z Diff in /home/runner/work/Theonix-OS/Theonix-OS/thaid/src/voice/mod.rs:1:
+2026-06-24T18:09:03.3436215Z  // thaid voice module — Whisper transcription + Piper TTS (Phase 2 implementation)
+2026-06-24T18:09:03.3436723Z  // Stub: full subprocess integration in Phase 3
+2026-06-24T18:09:03.3437029Z -pub mod whisper;
+2026-06-24T18:09:03.3437261Z  pub mod piper;
+2026-06-24T18:09:03.3437469Z +pub mod whisper;
+2026-06-24T18:09:03.3437666Z  
+2026-06-24T18:09:03.3585554Z ##[error]Process completed with exit code 1.
