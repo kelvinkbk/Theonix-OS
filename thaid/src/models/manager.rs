@@ -116,16 +116,17 @@ impl ModelManager {
         #[derive(Deserialize)]
         struct OllamaResponse {
             response: String,
-            done:     bool,
+            done: bool,
         }
 
         let request = OllamaRequest {
-            model:  &model_name,
+            model: &model_name,
             prompt,
             stream: false,
         };
 
-        let resp = self.http
+        let resp = self
+            .http
             .post(format!("{}/api/generate", self.ollama_url))
             .json(&request)
             .send()
@@ -157,7 +158,8 @@ impl ModelManager {
         if let Some(model) = current_model {
             info!(model = %model, "Unloading idle AI model");
             // Call Ollama API to evict the model from memory
-            let _ = self.http
+            let _ = self
+                .http
                 .post(format!("{}/api/generate", self.ollama_url))
                 .json(&serde_json::json!({
                     "model":     model,
