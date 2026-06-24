@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/usr/local/bin/force-resolution.sh
+Exec=bash /usr/local/bin/force-resolution.sh
 Hidden=false
 NoDisplay=false
 X-KDE-autostart-phase=1

@@ -66,7 +66,7 @@ GRUB_DEFAULT=0
 GRUB_TIMEOUT=3
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_DISTRIBUTOR="Theonix OS"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3 systemd.show_status=auto rd.udev.log_level=3 splash"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3 systemd.show_status=auto rd.udev.log_level=3 splash video=1920x1080"
 GRUB_CMDLINE_LINUX=""
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
 GRUB_TERMINAL_INPUT=console
