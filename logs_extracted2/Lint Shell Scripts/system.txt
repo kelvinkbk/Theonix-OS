@@ -1,0 +1,8 @@
+2026-06-24T18:18:29.0900000Z Evaluating shellcheck.if
+2026-06-24T18:18:29.0900000Z Evaluating: success()
+2026-06-24T18:18:29.0900000Z Result: true
+2026-06-24T18:18:29.0920000Z Requested labels: ubuntu-latest
+2026-06-24T18:18:29.0920000Z Job defined at: kelvinkbk/Theonix-OS/.github/workflows/ci.yml@refs/heads/main
+2026-06-24T18:18:29.0920000Z Waiting for a runner to pick up this job...
+2026-06-24T18:18:29.7140000Z Job is waiting for a hosted runner to come online.
+2026-06-24T18:18:29.7150000Z Job is about to start running on the hosted runner: GitHub Actions 1000000100
