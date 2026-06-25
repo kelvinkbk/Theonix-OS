@@ -21,6 +21,7 @@ RUN pacman -Sy --noconfirm archlinux-keyring && \
         erofs-utils \
         shellcheck \
         gnupg \
+        reflector \
         curl && \
     # Clean package cache to reduce image size
     pacman -Scc --noconfirm && \

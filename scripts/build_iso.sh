@@ -14,6 +14,9 @@ echo "=== Theonix OS ISO Builder ==="
 [ "$EUID" -eq 0 ] || { echo "Error: Please run as root."; exit 1; }
 command -v mkarchiso &>/dev/null || { echo "Error: archiso not installed."; exit 1; }
 
+echo "Updating Arch Linux mirrors to prevent download errors..."
+reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+
 echo "Copying clean releng profile..."
 rm -rf "$PROFILE_DIR"
 cp -r /usr/share/archiso/configs/releng/ "$PROFILE_DIR"
