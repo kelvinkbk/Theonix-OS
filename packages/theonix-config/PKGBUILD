@@ -1,0 +1,34 @@
+pkgname=theonix-config
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Theonix OS configuration, branding, and helper scripts"
+arch=('any')
+url="https://github.com/kelvinkbk/Theonix-OS"
+license=('MIT')
+depends=('bash' 'qt6-base' 'plasma-desktop')
+source=("local-source::git+file://${PWD%/*/*}/.git") # Placeholder
+md5sums=('SKIP')
+
+prepare() {
+    # If building locally outside CI, we can copy the profile folder
+    if [ -d "$srcdir/../../profile" ]; then
+        cp -r "$srcdir/../../profile" "$srcdir/"
+    elif [ -d "$srcdir/local-source/profile" ]; then
+        cp -r "$srcdir/local-source/profile" "$srcdir/"
+    fi
+}
+
+package() {
+    cd "$srcdir/profile/airootfs"
+    
+    # Install Theonix configuration and themes
+    install -Dm644 etc/theonix/logo.png "$pkgdir/etc/theonix/logo.png"
+    install -Dm644 etc/theonix/theme.qss "$pkgdir/etc/theonix/theme.qss"
+    install -Dm644 etc/theonix/trusted_domains.conf "$pkgdir/etc/theonix/trusted_domains.conf"
+    
+    # Install helper scripts
+    install -Dm755 usr/local/bin/force-resolution.sh "$pkgdir/usr/bin/force-resolution.sh"
+    install -Dm755 usr/local/bin/theonix-enable-ssh "$pkgdir/usr/bin/theonix-enable-ssh"
+    
+    # We purposefully exclude theonix-installer and pin-installer.sh since those are only for the live ISO!
+}

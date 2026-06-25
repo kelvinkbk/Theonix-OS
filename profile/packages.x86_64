@@ -138,3 +138,7 @@ apparmor
 plymouth
 konsole
 calamares
+discover
+packagekit-qt6
+thaid
+theonix-config

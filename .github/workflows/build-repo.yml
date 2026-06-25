@@ -1,0 +1,69 @@
+name: Build Custom Pacman Repository
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'thaid/**'
+      - 'packages/**'
+      - 'profile/airootfs/**'
+  workflow_dispatch:
+
+jobs:
+  build-repo:
+    runs-on: ubuntu-latest
+    
+    # Needs permissions to deploy to GitHub Pages (or a branch)
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Packages (Arch Linux)
+        uses: addnab/docker-run-action@v3
+        with:
+          image: archlinux:base-devel
+          options: -v ${{ github.workspace }}:/workdir -w /workdir
+          run: |
+            # Update system and install dependencies
+            pacman -Syu --noconfirm git rust cargo sudo dbus sqlite
+            
+            # Create a non-root user for makepkg
+            useradd -m builduser
+            echo "builduser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builduser
+            chown -R builduser:builduser /workdir
+            
+            # Setup repository directory
+            mkdir -p /workdir/repo/x86_64
+            
+            # Build thaid
+            cd /workdir/packages/thaid
+            sudo -u builduser makepkg -s --noconfirm
+            cp *.pkg.tar.zst /workdir/repo/x86_64/
+            
+            # Build theonix-config
+            cd /workdir/packages/theonix-config
+            sudo -u builduser makepkg -s --noconfirm
+            cp *.pkg.tar.zst /workdir/repo/x86_64/
+            
+            # Generate the repository database
+            cd /workdir/repo/x86_64
+            repo-add theonix.db.tar.gz *.pkg.tar.zst
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: './repo'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

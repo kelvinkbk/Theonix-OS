@@ -1,0 +1,30 @@
+pkgname=thaid
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Theonix AI Daemon (D-Bus service for local AI management)"
+arch=('x86_64')
+url="https://github.com/kelvinkbk/Theonix-OS"
+license=('MIT')
+depends=('dbus' 'sqlite' 'sysinfo')
+makedepends=('cargo')
+source=("local-source::git+file://${PWD%/*/*}/.git") # Placeholder, will be overriden or we just copy before build
+md5sums=('SKIP')
+
+prepare() {
+    # If building locally outside CI, we can copy the thaid folder
+    if [ -d "$srcdir/../../thaid" ]; then
+        cp -r "$srcdir/../../thaid" "$srcdir/"
+    elif [ -d "$srcdir/local-source/thaid" ]; then
+        cp -r "$srcdir/local-source/thaid" "$srcdir/"
+    fi
+}
+
+build() {
+    cd "$srcdir/thaid"
+    cargo build --release --locked
+}
+
+package() {
+    cd "$srcdir/thaid"
+    install -Dm755 "target/release/thaid" "$pkgdir/usr/bin/thaid"
+}
