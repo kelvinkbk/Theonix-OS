@@ -119,10 +119,7 @@ done
 sed -i '/^snapper$/d' "$PROFILE_DIR/packages.x86_64"
 sed -i '/^grub-btrfs$/d' "$PROFILE_DIR/packages.x86_64"
 
-echo "Injecting UI themes..."
-mkdir -p "$PROFILE_DIR/airootfs/etc/theonix"
-[ -f "design/ui_mockups/theme.qss" ] && cp "design/ui_mockups/theme.qss" "$PROFILE_DIR/airootfs/etc/theonix/"
-
+# Removed manual copy to etc/theonix as it is provided by theonix-config package
 echo "Installing custom design themes..."
 mkdir -p "$PROFILE_DIR/airootfs/usr/share/sddm/themes"
 cp -a /workdir/design/themes/sddm/theonix "$PROFILE_DIR/airootfs/usr/share/sddm/themes/" 2>/dev/null || true
