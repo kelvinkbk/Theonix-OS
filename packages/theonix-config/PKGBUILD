@@ -11,8 +11,8 @@ md5sums=('SKIP')
 
 prepare() {
     # If building locally outside CI, we can copy the profile folder
-    if [ -d "$srcdir/../../profile" ]; then
-        cp -r "$srcdir/../../profile" "$srcdir/"
+    if [ -d "$srcdir/../../../profile" ]; then
+        cp -r "$srcdir/../../../profile" "$srcdir/"
     elif [ -d "$srcdir/local-source/profile" ]; then
         cp -r "$srcdir/local-source/profile" "$srcdir/"
     fi

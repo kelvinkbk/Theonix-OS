@@ -12,8 +12,8 @@ md5sums=('SKIP')
 
 prepare() {
     # If building locally outside CI, we can copy the thaid folder
-    if [ -d "$srcdir/../../thaid" ]; then
-        cp -r "$srcdir/../../thaid" "$srcdir/"
+    if [ -d "$srcdir/../../../thaid" ]; then
+        cp -r "$srcdir/../../../thaid" "$srcdir/"
     elif [ -d "$srcdir/local-source/thaid" ]; then
         cp -r "$srcdir/local-source/thaid" "$srcdir/"
     fi
