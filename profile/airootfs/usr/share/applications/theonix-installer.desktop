@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install Theonix OS
+Comment=Install Theonix OS to disk
+Exec=theonix-installer
+Icon=calamares
+Terminal=false
+Categories=Qt;System;

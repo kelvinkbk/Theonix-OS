@@ -2,35 +2,7 @@
 # =============================================================================
 # Theonix OS — Installer Launcher
 # =============================================================================
-# Starts Calamares and opens a Konsole window showing live installation logs.
+# Starts Calamares with root privileges
 # =============================================================================
-
-SESSION_LOG="${XDG_DATA_HOME:-$HOME/.local/share}/calamares/session.log"
-
-mkdir -p "$(dirname "$SESSION_LOG")"
-touch "$SESSION_LOG"
-
-if command -v konsole >/dev/null 2>&1; then
-    konsole \
-        --separate \
-        --noclose \
-        -p tabtitle="Installation Log" \
-        -e bash -c '
-echo "Theonix OS — Installation Log"
-echo "Created by Kelvin Benny Koshy"
-echo "========================================"
-LOG="'"$SESSION_LOG"'"
-if [ -s "$LOG" ]; then
-    tail -n 50 -f "$LOG"
-else
-    echo "Waiting for installer output..."
-    while [ ! -s "$LOG" ]; do sleep 0.5; done
-    tail -f "$LOG"
-fi
-' &
-    sleep 0.5
-else
-    echo "Warning: konsole not found — install logs will only appear in Calamares UI." >&2
-fi
 
 exec sudo calamares "$@"

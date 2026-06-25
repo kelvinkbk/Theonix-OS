@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Pin Installer to Taskbar
+Exec=/usr/local/bin/pin-installer.sh
+Terminal=false
+StartupNotify=false
+Categories=System;
+X-KDE-autostart-after=panel
+X-KDE-autostart-phase=1
