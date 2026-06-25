@@ -1,6 +1,6 @@
 pkgname=thaid
 pkgver=0.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Theonix AI Daemon (D-Bus service for local AI management)"
 arch=('x86_64')
 url="https://github.com/kelvinkbk/Theonix-OS"
@@ -21,7 +21,7 @@ prepare() {
 
 build() {
     cd "$srcdir/thaid"
-    cargo build --release --locked
+    cargo build --release
 }
 
 package() {
