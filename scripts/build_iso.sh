@@ -42,6 +42,10 @@ qt6-multimedia-ffmpeg
 tesseract-data-eng
 EOF
 
+# The releng profile defaults to the -nox version (no X11/Wayland support)
+# We need the full version for KDE Plasma to support dynamic resolution
+sed -i 's/virtualbox-guest-utils-nox/virtualbox-guest-utils/g' "$PROFILE_DIR/packages.x86_64"
+
 echo "Applying Theonix OS Branding..."
 find "$PROFILE_DIR/syslinux" -type f -name "*.cfg" -exec sed -i 's/Arch Linux/Theonix OS/g' {} +
 find "$PROFILE_DIR/efiboot/loader/entries" -type f -name "*.conf" -exec sed -i 's/Arch Linux/Theonix OS/g' {} +
