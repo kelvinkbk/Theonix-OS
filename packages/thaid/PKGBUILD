@@ -1,6 +1,6 @@
 pkgname=thaid
 pkgver=0.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Theonix AI Daemon (D-Bus service for local AI management)"
 arch=('x86_64')
 url="https://github.com/kelvinkbk/Theonix-OS"
@@ -26,5 +26,7 @@ build() {
 
 package() {
     cd "$srcdir/thaid"
-    install -Dm755 "target/release/thaid" "$pkgdir/usr/bin/thaid"
+    install -Dm755 target/release/thaid "$pkgdir/usr/bin/thaid"
+    install -Dm644 data/thaid.service "$pkgdir/usr/lib/systemd/user/thaid.service"
+    install -Dm644 data/org.theonix.AI.service "$pkgdir/usr/share/dbus-1/services/org.theonix.AI.service"
 }
