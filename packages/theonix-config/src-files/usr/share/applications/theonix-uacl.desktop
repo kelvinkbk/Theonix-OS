@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Theonix UACL (Universal Application Compatibility Layer)
+Comment=Intelligently runs Windows, AppImage, and Linux packages
+Exec=theonix-uacl run --file %f
+Icon=system-software-install
+Terminal=false
+Type=Application
+Categories=System;
+MimeType=application/x-ms-dos-executable;application/x-msi;application/vnd.debian.binary-package;application/x-rpm;application/x-executable;application/x-appimage;
+NoDisplay=true

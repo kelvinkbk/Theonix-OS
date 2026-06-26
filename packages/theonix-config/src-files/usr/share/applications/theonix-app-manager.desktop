@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Theonix App Manager
+Comment=Manage Windows and Linux applications
+Exec=python3 /opt/theonix-app-manager/main.py
+Icon=applications-system
+Terminal=false
+Type=Application
+Categories=System;Settings;

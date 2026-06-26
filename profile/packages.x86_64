@@ -132,6 +132,13 @@ wayland
 plasma-meta
 sddm
 packagekit-qt6
+
+# UACL Dependencies
+wine
+winetricks
+debtap
+python-pyqt6
+
 ollama
 networkmanager
 pipewire
