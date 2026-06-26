@@ -33,7 +33,7 @@ jobs:
             set -ex
             
             # Update system and install dependencies
-            pacman -Syu --noconfirm git rust cargo sudo dbus sqlite
+            pacman -Syu --noconfirm git rust cargo sudo dbus sqlite pipewire-jack qt6-multimedia-ffmpeg
             
             # Create a non-root user for makepkg
             useradd -m builduser

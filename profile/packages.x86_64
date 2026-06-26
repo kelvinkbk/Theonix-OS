@@ -128,8 +128,10 @@ xl2tpd
 zsh
 # Theonix OS Core Packages
 wayland
+# KDE Plasma
 plasma-meta
 sddm
+packagekit-qt6
 ollama
 networkmanager
 pipewire
