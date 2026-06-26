@@ -1,6 +1,6 @@
 pkgname=theonix-config
 pkgver=0.1.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Theonix OS configuration, branding, and helper scripts"
 arch=('any')
 url="https://github.com/kelvinkbk/Theonix-OS"
