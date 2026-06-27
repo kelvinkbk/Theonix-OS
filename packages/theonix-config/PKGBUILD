@@ -1,6 +1,6 @@
 pkgname=theonix-config
 pkgver=0.1.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Theonix OS configuration, branding, and helper scripts"
 arch=('any')
 url="https://github.com/kelvinkbk/Theonix-OS"
@@ -25,6 +25,22 @@ package() {
     install -Dm644 etc/theonix/theme.qss "$pkgdir/etc/theonix/theme.qss"
     install -Dm644 etc/theonix/trusted_domains.conf "$pkgdir/etc/theonix/trusted_domains.conf"
     
+    # Install Theonix wallpapers
+    install -Dm644 usr/share/wallpapers/theonix/theonix-default.png \
+        "$pkgdir/usr/share/wallpapers/theonix/theonix-default.png"
+    install -Dm644 usr/share/wallpapers/theonix/theonix-nebula.png \
+        "$pkgdir/usr/share/wallpapers/theonix/theonix-nebula.png"
+
+    # Install KDE skel config (sets default wallpaper for new users)
+    install -Dm644 etc/skel/.config/plasma-wallpaper.conf \
+        "$pkgdir/etc/skel/.config/plasma-wallpaper.conf"
+
+    # Install desktop MIME handlers
+    install -Dm644 usr/share/applications/theonix-uacl.desktop \
+        "$pkgdir/usr/share/applications/theonix-uacl.desktop"
+    install -Dm644 usr/share/applications/theonix-app-manager.desktop \
+        "$pkgdir/usr/share/applications/theonix-app-manager.desktop"
+
     # Install helper scripts from the main profile dir
     cd "$srcdir/local-source/profile/airootfs"
     install -Dm755 usr/local/bin/force-resolution.sh "$pkgdir/usr/bin/force-resolution.sh"
