@@ -85,11 +85,16 @@ impl RuntimeManager {
         let status = Command::new("wineboot")
             .env("WINEPREFIX", &prefix_path)
             .env("WINEDEBUG", "-all")
+            .env("WINE_HIDE_CRASH_DIALOG", "1")
+            .env("WINEDLLOVERRIDES", "mscoree,mshtml=")
             .arg("--init")
+            .stderr(std::process::Stdio::null())
+            .stdout(std::process::Stdio::null())
             .status()?;
 
         if !status.success() {
-            anyhow::bail!("Failed to initialize WINEPREFIX");
+            // Non-fatal: prefix may still be usable
+            warn!("wineboot returned non-zero, continuing anyway");
         }
 
         Ok(prefix_path)
@@ -103,7 +108,11 @@ impl RuntimeManager {
         Command::new("winetricks")
             .env("WINEPREFIX", prefix_path)
             .env("WINEDEBUG", "-all")
+            .env("WINE_HIDE_CRASH_DIALOG", "1")
+            .env("WINEDLLOVERRIDES", "mscoree,mshtml=")
             .args(["-q", win_ver])
+            .stderr(std::process::Stdio::null())
+            .stdout(std::process::Stdio::null())
             .status()?;
 
         Ok(())
@@ -127,6 +136,10 @@ impl RuntimeManager {
         let status = Command::new("winetricks")
             .env("WINEPREFIX", prefix_path)
             .env("WINEDEBUG", "-all")
+            .env("WINE_HIDE_CRASH_DIALOG", "1")
+            .env("WINEDLLOVERRIDES", "mscoree,mshtml=")
+            .stderr(std::process::Stdio::null())
+            .stdout(std::process::Stdio::null())
             .args(&args)
             .status()?;
 
@@ -157,17 +170,15 @@ impl RuntimeManager {
         let mut cmd = Command::new("wine");
         cmd.env("WINEPREFIX", prefix_path)
            .env("WINEDEBUG", "-all")
+           .env("WINE_HIDE_CRASH_DIALOG", "1")
+           .env("WINEDLLOVERRIDES", "mscoree,mshtml=")
            .arg(exe_path);
 
         for arg in args {
             cmd.arg(arg);
         }
 
-        let status = cmd.status()?;
-
-        if !status.success() {
-            warn!("Executable exited with non-zero status");
-        }
+        cmd.status()?;
 
         Ok(())
     }

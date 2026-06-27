@@ -1,6 +1,6 @@
 pkgname=theonix-uacl
 pkgver=0.1.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Theonix OS Universal Application Compatibility Layer (Backend)"
 arch=('x86_64')
 url="https://github.com/kelvinkbk/Theonix-OS"
