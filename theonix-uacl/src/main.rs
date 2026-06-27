@@ -58,14 +58,33 @@ fn main() -> anyhow::Result<()> {
                     println!("Windows executable detected. Intercepting and routing to Runtime Manager...");
                     let rm = RuntimeManager::new()?;
                     
-                    // Use a hash of the file path or name as a unique app ID for now
-                    let app_id = path.file_stem().unwrap().to_string_lossy().to_string();
+                    // Build a clean app name from the filename
+                    let app_name = path.file_stem().unwrap().to_string_lossy().to_string();
+                    // Use a sanitized version as the unique ID too
+                    let app_id = app_name.to_lowercase().replace(' ', "_");
                     
                     let prefix_path = rm.create_wine_prefix(&app_id)?;
                     
-                    // Simple heuristic: if it contains "setup" or "install", we should probably install it.
-                    // For now, just run it.
+                    // Run the executable
                     rm.run_executable(&prefix_path, &path, &[])?;
+
+                    // Register the app in the database so it shows in App Manager
+                    let app = database::Application {
+                        id: app_id.clone(),
+                        name: app_name,
+                        original_file_path: path.to_string_lossy().to_string(),
+                        install_path: prefix_path.to_string_lossy().to_string(),
+                        format_type: "WindowsPE".to_string(),
+                        prefix_path: Some(prefix_path.to_string_lossy().to_string()),
+                        runtime_version: Some("wine".to_string()),
+                        uses_dxvk: false,
+                        uses_vkd3d: false,
+                        desktop_shortcut_path: None,
+                        icon_path: None,
+                    };
+                    // Ignore error if already exists (re-run of same app)
+                    let _ = db.insert_application(&app);
+                    println!("Registered '{}' in Theonix App Manager.", app_id);
                 }
                 FileFormat::AppImage => {
                     println!("AppImage detected. Integrating into desktop...");
