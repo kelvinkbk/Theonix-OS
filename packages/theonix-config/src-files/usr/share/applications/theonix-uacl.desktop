@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Theonix UACL (Universal Application Compatibility Layer)
 Comment=Intelligently runs Windows, AppImage, and Linux packages
-Exec=theonix-uacl run --file %f
+Exec=python3 /opt/theonix-app-manager/launcher.py %f
 Icon=system-software-install
 Terminal=false
 Type=Application

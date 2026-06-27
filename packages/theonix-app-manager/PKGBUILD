@@ -1,6 +1,6 @@
 pkgname=theonix-app-manager
 pkgver=0.1.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Theonix OS Universal Application Compatibility Layer (GUI)"
 arch=('any')
 url="https://github.com/kelvinkbk/Theonix-OS"
@@ -25,6 +25,7 @@ package() {
     # Install Python files to /opt/theonix-app-manager
     install -d "$pkgdir/opt/theonix-app-manager"
     install -Dm644 main.py "$pkgdir/opt/theonix-app-manager/main.py"
+    install -Dm644 launcher.py "$pkgdir/opt/theonix-app-manager/launcher.py"
     
     # Install the desktop file
     cd "$srcdir"
