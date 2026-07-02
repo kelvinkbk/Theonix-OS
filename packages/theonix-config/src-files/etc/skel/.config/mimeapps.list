@@ -1,4 +1,4 @@
 [Default Applications]
-application/x-ms-dos-executable=theonix-uacl.desktop
-application/x-msi=theonix-uacl.desktop
-application/x-ms-shortcut=theonix-uacl.desktop
+application/x-ms-dos-executable=theonix-uacl.desktop;
+application/x-msi=theonix-uacl.desktop;
+application/x-ms-shortcut=theonix-uacl.desktop;

@@ -1,0 +1,2 @@
+#!/bin/bash
+exec python3 /opt/theonix-app-manager/launcher.py "$1"

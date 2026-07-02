@@ -1,6 +1,6 @@
 pkgname=theonix-config
 pkgver=0.1.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Theonix OS configuration, branding, and helper scripts"
 arch=('any')
 url="https://github.com/kelvinkbk/Theonix-OS"
@@ -36,6 +36,10 @@ package() {
         "$pkgdir/etc/skel/.config/plasma-wallpaper.conf"
     install -Dm644 etc/skel/.config/mimeapps.list \
         "$pkgdir/etc/skel/.config/mimeapps.list"
+
+    # Install binfmt_misc handler for PE executables to override wine
+    install -Dm644 etc/binfmt.d/wine.conf "$pkgdir/etc/binfmt.d/wine.conf"
+    install -Dm755 usr/bin/theonix-uacl-binfmt "$pkgdir/usr/bin/theonix-uacl-binfmt"
 
     # Desktop MIME handlers are installed by their respective packages
 
