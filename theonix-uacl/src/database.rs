@@ -95,15 +95,27 @@ impl Database {
         Ok(())
     }
 
-    pub fn insert_application(&self, app: &Application) -> Result<()> {
+    pub fn upsert_application(&self, app: &Application) -> Result<()> {
         self.conn.execute(
-            "INSERT OR IGNORE INTO applications (
+            "INSERT INTO applications (
                 id, name, original_file_path, install_path, format_type,
                 prefix_path, runtime_version, uses_dxvk, uses_vkd3d,
                 desktop_shortcut_path, icon_path,
                 compatibility_rating, launch_count, runtime_profile,
                 recommended_runtime, gpu_backend, sandbox_enabled
-            ) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17)",
+            ) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17)
+            ON CONFLICT(id) DO UPDATE SET
+                name=excluded.name,
+                original_file_path=excluded.original_file_path,
+                install_path=excluded.install_path,
+                format_type=excluded.format_type,
+                prefix_path=excluded.prefix_path,
+                runtime_version=excluded.runtime_version,
+                uses_dxvk=excluded.uses_dxvk,
+                uses_vkd3d=excluded.uses_vkd3d,
+                runtime_profile=excluded.runtime_profile,
+                recommended_runtime=excluded.recommended_runtime,
+                gpu_backend=excluded.gpu_backend",
             params![
                 app.id,
                 app.name,
@@ -125,6 +137,53 @@ impl Database {
             ],
         )?;
         Ok(())
+    }
+
+    pub fn get_application(&self, id: &str) -> Result<Option<Application>> {
+        let mut stmt = self.conn.prepare(
+            "SELECT id, name, original_file_path, install_path, format_type,
+                    prefix_path, runtime_version, uses_dxvk, uses_vkd3d,
+                    desktop_shortcut_path, icon_path,
+                    COALESCE(compatibility_rating, 0),
+                    COALESCE(launch_count, 0),
+                    last_launch, known_issues, runtime_profile,
+                    recommended_runtime,
+                    COALESCE(gpu_backend, 'none'),
+                    COALESCE(sandbox_enabled, 1)
+             FROM applications WHERE id = ?1",
+        )?;
+        let mut rows = stmt.query_map(params![id], |row| {
+            Ok(Application {
+                id: row.get(0)?,
+                name: row.get(1)?,
+                original_file_path: row.get(2)?,
+                install_path: row.get(3)?,
+                format_type: row.get(4)?,
+                prefix_path: row.get(5)?,
+                runtime_version: row.get(6)?,
+                uses_dxvk: row.get(7)?,
+                uses_vkd3d: row.get(8)?,
+                desktop_shortcut_path: row.get(9)?,
+                icon_path: row.get(10)?,
+                compatibility_rating: row.get(11)?,
+                launch_count: row.get(12)?,
+                last_launch: row.get(13)?,
+                known_issues: row.get(14)?,
+                runtime_profile: row.get(15)?,
+                recommended_runtime: row.get(16)?,
+                gpu_backend: row.get(17)?,
+                sandbox_enabled: row.get(18)?,
+            })
+        })?;
+        if let Some(row) = rows.next() {
+            Ok(Some(row?))
+        } else {
+            Ok(None)
+        }
+    }
+
+    pub fn insert_application(&self, app: &Application) -> Result<()> {
+        self.upsert_application(app)
     }
 
     /// Increment launch count and update last_launch timestamp

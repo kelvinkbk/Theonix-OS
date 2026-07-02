@@ -1,0 +1,25 @@
+pkgname=theonix-store
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Theonix OS unified application store (pacman, Flatpak, UACL)"
+arch=('any')
+url="https://github.com/kelvinkbk/Theonix-OS"
+license=('MIT')
+depends=('python' 'python-pyqt6' 'theonix-uacl' 'flatpak' 'pacman')
+source=("local-source::git+file://${PWD%/*/*}/.git")
+md5sums=('SKIP')
+
+prepare() {
+    if [ -d "$srcdir/../../../theonix-store" ]; then
+        cp -r "$srcdir/../../../theonix-store" "$srcdir/"
+        cp "$srcdir/../../../packages/theonix-config/src-files/usr/share/applications/theonix-store.desktop" "$srcdir/"
+    elif [ -d "$srcdir/local-source/theonix-store" ]; then
+        cp -r "$srcdir/local-source/theonix-store" "$srcdir/"
+        cp "$srcdir/local-source/packages/theonix-config/src-files/usr/share/applications/theonix-store.desktop" "$srcdir/"
+    fi
+}
+
+package() {
+    install -Dm755 "$srcdir/theonix-store/main.py" "$pkgdir/usr/bin/theonix-store"
+    install -Dm644 "$srcdir/theonix-store.desktop" "$pkgdir/usr/share/applications/theonix-store.desktop"
+}

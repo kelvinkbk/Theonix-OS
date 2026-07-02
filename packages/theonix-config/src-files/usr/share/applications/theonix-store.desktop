@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Theonix Store
+Comment=Unified search for native, Flatpak, and Windows apps
+Exec=theonix-store
+Icon=system-software-install
+Terminal=false
+Categories=System;PackageManager;
+Keywords=store;apps;flatpak;wine;uacl;

@@ -7,7 +7,7 @@ on:
     paths:
       - 'thaid/**'
       - 'packages/**'
-      - 'profile/airootfs/**'
+      - 'theonix-store/**'
   workflow_dispatch:
 
 jobs:
@@ -71,6 +71,11 @@ jobs:
             
             # Build theonix-app-manager
             cd /workdir/packages/theonix-app-manager
+            sudo -u builduser makepkg -s --noconfirm
+            cp *.pkg.tar.zst /workdir/repo/x86_64/
+
+            # Build theonix-store
+            cd /workdir/packages/theonix-store
             sudo -u builduser makepkg -s --noconfirm
             cp *.pkg.tar.zst /workdir/repo/x86_64/
             

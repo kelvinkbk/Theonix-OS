@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# =============================================================================
+# Theonix OS — Live ISO recovery helper
+# =============================================================================
+# Opens a root shell with common repair tools for broken installs.
+# =============================================================================
+
+set -euo pipefail
+
+if [[ "${EUID}" -ne 0 ]]; then
+    echo "Theonix Recovery requires root. Run: sudo theonix-recovery"
+    exit 1
+fi
+
+echo "=== Theonix OS Recovery ==="
+echo "Created by Kelvin Benny Koshy"
+echo ""
+echo "Available commands:"
+echo "  lsblk, fdisk -l     — list disks"
+echo "  mount /dev/sdXY /mnt — mount root partition"
+echo "  arch-chroot /mnt    — enter installed system"
+echo "  theonix-installer   — re-run Calamares installer"
+echo ""
+
+if command -v konsole >/dev/null 2>&1; then
+    exec konsole --title "Theonix Recovery" -e bash -l
+fi
+
+exec bash -l

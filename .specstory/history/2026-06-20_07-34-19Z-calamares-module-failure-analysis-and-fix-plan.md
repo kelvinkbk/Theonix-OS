@@ -4961,3 +4961,174 @@ What's next:
 Check the output above for error details.
 [3/3] Tip: run with -Clean flag to force a fresh image build.
 PS D:\project\theonix os>
+
+_**User**_
+
+check for improve ment and new feature and fixis start it imidialy
+
+_**User**_
+
+You are helping develop Theonix OS — a custom Arch Linux-based desktop OS.
+
+## Stack
+- Build: mkarchiso + Docker + GitHub Actions CI/CD
+- Desktop: KDE Plasma + SDDM + Calamares installer
+- Package repo: Custom [theonix] pacman repo on GitHub Pages
+- Languages: Rust, Python (PyQt6), Bash, QML
+
+## What's built so far
+1. Custom Arch ISO pipeline (GitHub Actions builds automatically)
+2. Theonix branding (logo, SDDM theme, GRUB theme, Plymouth boot animation)
+3. Calamares installer with custom post-install script
+4. OTA updates via KDE Discover (packagekit-qt6)
+5. UACL — Universal Application Compatibility Layer:
+   - Rust backend: detects .exe/.deb/.AppImage by magic bytes, creates isolated Wine prefixes per app, auto-installs VC++/.NET/DirectX deps via winetricks, supports runtime profiles (gaming/office/legacy)
+   - PyQt6 GUI (Theonix App Manager) showing installed foreign apps
+   - One-click launcher dialog (launcher.py) replacing raw Wine windows
+   - SQLite database tracking installed apps with compatibility_rating, launch_count, runtime_profile etc.
+   - MIME handlers so double-clicking .exe in Dolphin triggers UACL
+6. Plymouth boot animation (logo pulse + dot spinner + progress bar)
+7. Custom wallpapers in /usr/share/wallpapers/theonix/
+
+## Current issues / improvement areas
+- Plymouth animation not showing in VirtualBox (framebuffer issue being debugged)
+- Wine Debugger popup still occasionally appears during dep installation
+- App Manager sidebar is empty (apps not populating from DB properly)
+- Need Phase 6.4: AI Compatibility Engine (using thaid D-Bus daemon to recommend best runtime)
+- Need Phase 6.6: Theonix Store (unified store for native/Flatpak/Windows apps)
+
+## Key files
+- packages/theonix-uacl/PKGBUILD — Rust backend build
+- packages/theonix-app-manager/PKGBUILD — Python GUI build
+- theonix-uacl/src/main.rs — CLI entrypoint
+- theonix-uacl/src/detector.rs — magic byte file detection
+- theonix-uacl/src/runtime.rs — Wine prefix management
+- theonix-uacl/src/database.rs — SQLite app registry
+- theonix-app-manager/main.py — App Manager GUI
+- theonix-app-manager/launcher.py — One-click install dialog
+- design/themes/plymouth/theonix/theonix.script — Boot animation
+- calamares/modules/theonix-postinstall.sh — Post-install setup
+- .github/workflows/build-repo.yml — CI/CD pipeline
+
+Please help me improve ["improve the App Manager so apps show in the sidebar after installation"
+"fix the Plymouth boot animation not showing in VirtualBox"
+"build the Theonix Store unified search UI""and what ever you thing ther ar problem"].
+
+
+---
+
+_**Agent (composer-2.5)**_
+
+Investigating the build failure and the App Manager, Plymouth, and Store issues — starting with the codebase.
+
+
+_**Agent (composer-2.5)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2">
+<details>
+<summary>Tool use: **task_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "description": "Explore UACL and App Manager",
+  "model": "composer-2.5-fast",
+  "name": "explore",
+  "prompt": "Explore d:\\project\\Theonix OS for theonix-uacl and theonix-app-manager code. Focus on why apps might not show in App Manager sidebar after installation. Read main.py, launcher.py, database.rs, and any DB query/population logic. Return: root cause hypothesis, exact files/lines to fix, and how install flow writes to DB vs how GUI reads it.",
+  "subagentType": "explore"
+}
+```
+Additional data:
+
+```json
+{
+  "status": "loading",
+  "subagentComposerId": "d6f45da0-280e-45e0-b10b-48cdb0e21e12"
+}
+```
+Status: **loading**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2"><details>
+<summary>Tool use: **task_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (composer-2.5)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2">
+<details>
+<summary>Tool use: **task_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "description": "Explore build and Calamares conflicts",
+  "model": "composer-2.5-fast",
+  "name": "explore",
+  "prompt": "Explore d:\\project\\Theonix OS build pipeline. The mkarchiso build failed because calamares package files conflict with airootfs/etc/calamares/modules/*.conf. Also check scripts/build_iso.sh for duplicate packages, missing generate_shadow.sh hook, missing theonix-recovery/gshadow. Read profile/packages.x86_64, build_iso.sh, calamares configs, profiledef.sh or airootfs file lists. Return concrete fixes needed with file paths.",
+  "subagentType": "explore"
+}
+```
+Additional data:
+
+```json
+{
+  "status": "loading",
+  "subagentComposerId": "d8b6a302-7cf7-42f6-aeb1-e04f3e355a21"
+}
+```
+Status: **loading**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2"><details>
+<summary>Tool use: **task_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (composer-2.5)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2">
+<details>
+<summary>Tool use: **task_v2**</summary>
+
+
+Parameters:
+
+```json
+{
+  "description": "Explore Plymouth and Store",
+  "model": "composer-2.5-fast",
+  "name": "explore",
+  "prompt": "Explore d:\\project\\Theonix OS for Plymouth theme (design/themes/plymouth/theonix/) and any Theonix Store code. For Plymouth: read theonix.script, plymouthd.conf, mkinitcpio hooks. For Store: search for store UI, packagekit, discover integration. Return VirtualBox framebuffer fix suggestions and whether Store UI exists or needs to be created from scratch.",
+  "subagentType": "explore"
+}
+```
+Additional data:
+
+```json
+{
+  "status": "loading",
+  "subagentComposerId": "92bea3a9-f7bc-4733-ad0c-628ce5ea93b4"
+}
+```
+Status: **loading**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2"><details>
+<summary>Tool use: **task_v2**</summary>
+
+</details></tool-use>

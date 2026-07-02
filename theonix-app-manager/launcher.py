@@ -67,6 +67,10 @@ class LaunchWorker(QThread):
                     ["theonix-uacl", "run", "--file", self.file_path],
                     capture_output=True, text=True
                 )
+                if result.returncode != 0:
+                    err = (result.stderr or result.stdout or "UACL failed").strip()
+                    self.signals.finished.emit(False, err)
+                    return
 
                 self.signals.step_done.emit(3)
                 self.msleep(200)
@@ -81,6 +85,10 @@ class LaunchWorker(QThread):
                     ["theonix-uacl", "run", "--file", self.file_path],
                     capture_output=True, text=True
                 )
+                if result.returncode != 0:
+                    err = (result.stderr or result.stdout or "UACL failed").strip()
+                    self.signals.finished.emit(False, err)
+                    return
 
                 self.signals.step_done.emit(2)
                 self.msleep(300)
@@ -97,6 +105,10 @@ class LaunchWorker(QThread):
                     ["theonix-uacl", "run", "--file", self.file_path],
                     capture_output=True, text=True
                 )
+                if result.returncode != 0:
+                    err = (result.stderr or result.stdout or "UACL failed").strip()
+                    self.signals.finished.emit(False, err)
+                    return
 
                 self.signals.step_done.emit(2)
                 self.signals.finished.emit(True, "")
@@ -279,6 +291,17 @@ class TheonixLauncher(QWidget):
             self.progress.setValue(step_index + 1)
 
     def on_finished(self, success, error):
+        if not success:
+            if self.step_labels:
+                last_status, last_text = self.step_labels[-1]
+                last_status.setText("✖")
+                last_status.setStyleSheet("color: #ff5555; font-size: 14px; font-weight: bold;")
+                last_text.setStyleSheet("color: #ff8888; font-size: 12px;")
+            self.cancel_btn.setText("Close")
+            if error:
+                self.cancel_btn.setToolTip(error)
+            return
+
         # Mark last step done
         if self.step_labels:
             last_status, last_text = self.step_labels[-1]

@@ -24,30 +24,10 @@ cp -r /usr/share/archiso/configs/releng/ "$PROFILE_DIR"
 echo "Overlaying custom profile configurations..."
 cp -aT /workdir/profile/ "$PROFILE_DIR"
 
-echo "Customizing packages..."
-cat <<EOF >> "$PROFILE_DIR/packages.x86_64"
-# Theonix OS Core Packages
-wayland
-plasma-meta
-sddm
-ollama
-networkmanager
-pipewire
-wireplumber
-apparmor
-plymouth
-konsole
-# Explicit providers to avoid pacman interactive prompts
-pipewire-jack
-noto-fonts
-iptables-nft
-qt6-multimedia-ffmpeg
-tesseract-data-eng
-EOF
-
-# The releng profile defaults to the -nox version (no X11/Wayland support)
-# We need the full version for KDE Plasma to support dynamic resolution
-sed -i 's/virtualbox-guest-utils-nox/virtualbox-guest-utils/g' "$PROFILE_DIR/packages.x86_64"
+# Deduplicate package list (profile may contain duplicates from manual edits)
+awk '!/^#/ && NF { if ($1 in seen) next; seen[$1]=1 } { print }' \
+    "$PROFILE_DIR/packages.x86_64" > "$PROFILE_DIR/packages.x86_64.tmp"
+mv "$PROFILE_DIR/packages.x86_64.tmp" "$PROFILE_DIR/packages.x86_64"
 
 echo "Applying Theonix OS Branding..."
 find "$PROFILE_DIR/syslinux" -type f -name "*.cfg" -exec sed -i 's/Arch Linux/Theonix OS/g' {} +
@@ -79,6 +59,7 @@ EOF
 echo "Writing archiso.conf with zstd compression..."
 mkdir -p "$PROFILE_DIR/airootfs/etc/mkinitcpio.conf.d"
 cat <<EOF > "$PROFILE_DIR/airootfs/etc/mkinitcpio.conf.d/archiso.conf"
+MODULES=(vboxvideo)
 HOOKS=(base udev plymouth microcode modconf kms memdisk archiso archiso_loop_mnt archiso_pxe_common archiso_pxe_nbd archiso_pxe_http archiso_pxe_nfs block filesystems keyboard)
 COMPRESSION="zstd"
 COMPRESSION_OPTIONS=(-19 --long)
@@ -126,6 +107,13 @@ cp -a /workdir/design/themes/sddm/theonix "$PROFILE_DIR/airootfs/usr/share/sddm/
 
 mkdir -p "$PROFILE_DIR/airootfs/usr/share/plymouth/themes"
 cp -a /workdir/design/themes/plymouth/theonix "$PROFILE_DIR/airootfs/usr/share/plymouth/themes/" 2>/dev/null || true
+# Ensure background.png exists for the Plymouth script theme
+if [ ! -f "$PROFILE_DIR/airootfs/usr/share/plymouth/themes/theonix/background.png" ]; then
+    cp /workdir/design/themes/kde/theonix/contents/images/3840x2160.png \
+        "$PROFILE_DIR/airootfs/usr/share/plymouth/themes/theonix/background.png" 2>/dev/null || \
+    cp "$PROFILE_DIR/airootfs/usr/share/plymouth/themes/theonix/logo.png" \
+        "$PROFILE_DIR/airootfs/usr/share/plymouth/themes/theonix/background.png" 2>/dev/null || true
+fi
 
 mkdir -p "$PROFILE_DIR/airootfs/usr/share/plasma/look-and-feel"
 cp -a /workdir/design/themes/kde/theonix "$PROFILE_DIR/airootfs/usr/share/plasma/look-and-feel/org.theonix.desktop" 2>/dev/null || true
@@ -149,19 +137,22 @@ ColorScheme=Theonix
 widgetStyle=Breeze
 EOF
 
-echo "Installing Calamares custom configurations (only custom/extra modules, not package defaults)..."
-mkdir -p "$PROFILE_DIR/airootfs/etc/calamares"
-[ -f /workdir/calamares/settings.conf ] && cp /workdir/calamares/settings.conf "$PROFILE_DIR/airootfs/etc/calamares/" 2>/dev/null || true
-[ -d /workdir/calamares/branding ] && cp -a /workdir/calamares/branding "$PROFILE_DIR/airootfs/etc/calamares/" 2>/dev/null || true
+echo "Installing Calamares custom configurations (staged, applied after pacstrap)..."
+# Never place module .conf files under etc/calamares/modules before pacstrap —
+# the calamares package owns those paths and pacman will abort on conflicts.
+rm -rf "$PROFILE_DIR/airootfs/etc/calamares/modules"
 
-# To prevent pacman file conflicts during mkarchiso pacstrap, stage modules in a safe location
 mkdir -p "$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/modules"
 cp -a /workdir/calamares/modules/* "$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/modules/" 2>/dev/null || true
 chmod +x "$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/modules"/*.sh 2>/dev/null || true
 
-# Create a pacman hook to copy the custom modules over the package defaults after installation
+[ -f /workdir/calamares/settings.conf ] && \
+    cp /workdir/calamares/settings.conf "$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/settings.conf"
+[ -d /workdir/calamares/branding ] && \
+    cp -a /workdir/calamares/branding "$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/"
+
 mkdir -p "$PROFILE_DIR/airootfs/etc/pacman.d/hooks"
-cat <<EOF > "$PROFILE_DIR/airootfs/etc/pacman.d/hooks/99-calamares-custom.hook"
+cat <<'EOF' > "$PROFILE_DIR/airootfs/etc/pacman.d/hooks/99-calamares-custom.hook"
 [Trigger]
 Operation = Install
 Operation = Upgrade
@@ -169,14 +160,15 @@ Type = Package
 Target = calamares
 
 [Action]
-Description = Applying custom Calamares module configurations...
+Description = Applying Theonix Calamares configuration...
 When = PostTransaction
-Exec = /usr/bin/cp -af /usr/local/share/calamares_custom/modules/. /etc/calamares/modules/
+NeedsTargets
+Exec = /bin/sh -c 'cp -af /usr/local/share/calamares_custom/modules/. /etc/calamares/modules/; [ -f /usr/local/share/calamares_custom/settings.conf ] && cp -f /usr/local/share/calamares_custom/settings.conf /etc/calamares/settings.conf; [ -d /usr/local/share/calamares_custom/branding ] && cp -a /usr/local/share/calamares_custom/branding/. /etc/calamares/branding/'
 EOF
 
 echo ""
 echo "=== Calamares Module Validation ==="
-CALAMARES_SETTINGS="$PROFILE_DIR/airootfs/etc/calamares/settings.conf"
+CALAMARES_SETTINGS="/workdir/calamares/settings.conf"
 CALAMARES_LOCAL="$PROFILE_DIR/airootfs/usr/local/share/calamares_custom/modules"
 
 MODULES=$(grep -E '^\s+- ' "$CALAMARES_SETTINGS" 2>/dev/null | sed 's/#.*//; s/^\s*- //; s/\s*$//' | grep -v -E '^(local|/usr/lib/calamares/modules|show:|exec:)$' | grep -v '^\s*$' | sort -u)
@@ -219,6 +211,11 @@ ln -sf /usr/lib/systemd/system/NetworkManager.service "$PROFILE_DIR/airootfs/etc
 ln -sf /usr/lib/systemd/system/systemd-resolved.service "$PROFILE_DIR/airootfs/etc/systemd/system/multi-user.target.wants/systemd-resolved.service" 2>/dev/null || true
 
 chmod +x "$PROFILE_DIR/airootfs/usr/local/bin/force-resolution.sh" 2>/dev/null || true
+chmod +x "$PROFILE_DIR/airootfs/usr/local/bin/theonix-installer" 2>/dev/null || true
+chmod +x "$PROFILE_DIR/airootfs/usr/local/bin/theonix-recovery" 2>/dev/null || true
+
+echo "Generating shadow/gshadow for live ISO..."
+/workdir/scripts/generate_shadow.sh "$PROFILE_DIR"
 
 echo "Starting ISO build..."
 mkarchiso -v -w "$WORKDIR" -o "$OUTDIR" "$PROFILE_DIR" || { echo "mkarchiso failed!"; exit 1; }

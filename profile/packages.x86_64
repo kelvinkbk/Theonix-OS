@@ -116,7 +116,7 @@ usb_modeswitch
 usbmuxd
 usbutils
 vim
-virtualbox-guest-utils-nox
+virtualbox-guest-utils
 vpnc
 wireless-regdb
 wireless_tools
@@ -146,12 +146,22 @@ python-pyqt6
 ollama
 networkmanager
 pipewire
+pipewire-jack
 wireplumber
 apparmor
-plymouth
 konsole
 calamares
 discover
 packagekit-qt6
+flatpak
 thaid
 theonix-config
+theonix-uacl
+theonix-app-manager
+theonix-store
+
+# Pacman provider pins (avoid interactive prompts during ISO build)
+noto-fonts
+iptables-nft
+qt6-multimedia-ffmpeg
+tesseract-data-eng

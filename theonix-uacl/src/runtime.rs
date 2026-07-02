@@ -163,7 +163,29 @@ impl RuntimeManager {
         Ok(())
     }
 
-    /// Executes a Windows binary within a specific prefix
+    /// Executes a Windows binary within a specific prefix (non-blocking)
+    pub fn spawn_executable(&self, prefix_path: &Path, exe_path: &Path, args: &[String]) -> Result<()> {
+        info!("Spawning {:?} in prefix {:?}", exe_path, prefix_path);
+
+        let mut cmd = Command::new("wine");
+        cmd.env("WINEPREFIX", prefix_path)
+           .env("WINEDEBUG", "-all")
+           .env("WINE_HIDE_CRASH_DIALOG", "1")
+           .env("WINEDLLOVERRIDES", "mscoree,mshtml=")
+           .stdin(std::process::Stdio::null())
+           .stdout(std::process::Stdio::null())
+           .stderr(std::process::Stdio::null())
+           .arg(exe_path);
+
+        for arg in args {
+            cmd.arg(arg);
+        }
+
+        cmd.spawn()?;
+        Ok(())
+    }
+
+    /// Executes a Windows binary within a specific prefix (blocking)
     pub fn run_executable(&self, prefix_path: &Path, exe_path: &Path, args: &[String]) -> Result<()> {
         info!("Running {:?} in prefix {:?}", exe_path, prefix_path);
 
@@ -172,6 +194,9 @@ impl RuntimeManager {
            .env("WINEDEBUG", "-all")
            .env("WINE_HIDE_CRASH_DIALOG", "1")
            .env("WINEDLLOVERRIDES", "mscoree,mshtml=")
+           .stdin(std::process::Stdio::null())
+           .stdout(std::process::Stdio::null())
+           .stderr(std::process::Stdio::null())
            .arg(exe_path);
 
         for arg in args {

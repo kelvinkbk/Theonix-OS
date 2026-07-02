@@ -16,6 +16,7 @@ set -euo pipefail
 
 PROFILE_DIR="${1:-profile}"
 SHADOW_PATH="${PROFILE_DIR}/airootfs/etc/shadow"
+GSHADOW_PATH="${PROFILE_DIR}/airootfs/etc/gshadow"
 
 # Validate profile dir exists
 if [[ ! -d "${PROFILE_DIR}" ]]; then
@@ -42,5 +43,11 @@ EOF
 # Set strict permissions — shadow must only be readable by root
 chmod 000 "${SHADOW_PATH}"
 
+cat > "${GSHADOW_PATH}" << EOF
+root:!::
+EOF
+chmod 000 "${GSHADOW_PATH}"
+
 echo "==> shadow file generated (root account locked, password login disabled)"
+echo "==> gshadow file generated"
 echo "==> Permissions set to 000 (root only)"

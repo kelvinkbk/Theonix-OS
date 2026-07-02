@@ -114,18 +114,10 @@ docker run `
     --volume "${MountPath}:/workdir" `
     theonix-builder
 
-# Extract the built ISO from the docker volume to the host
+# ISO is written directly to /workdir/out (mounted from the project root)
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "[3/3] Copying final ISO to host 'out/' directory..." -ForegroundColor Green
+    Write-Host "[3/3] Build finished — checking for ISO in 'out/'..." -ForegroundColor Green
     New-Item -ItemType Directory -Path "$ProjectRoot\out" -Force | Out-Null
-    docker create --volume "theonix-build-cache:/build-cache" --name theonix-extract theonix-builder | Out-Null
-    docker cp "theonix-extract:/build-cache/out" "$ProjectRoot\out_temp"
-    docker rm theonix-extract | Out-Null
-    Get-ChildItem -Path "$ProjectRoot\out_temp" -Recurse -Filter "*.iso" | ForEach-Object {
-        Copy-Item -Path $_.FullName -Destination "$ProjectRoot\out\" -Force
-        Write-Host "  Extracted: $($_.Name)" -ForegroundColor White
-    }
-    Remove-Item -Path "$ProjectRoot\out_temp" -Recurse -Force -ErrorAction SilentlyContinue
 }
 
 if ($LASTEXITCODE -eq 0) {
