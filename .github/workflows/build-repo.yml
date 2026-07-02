@@ -14,21 +14,13 @@ jobs:
   build-repo:
     runs-on: ubuntu-latest
 
-    # Required for GitHub Pages - links job to the Pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    # Cancel any in-progress deployment so new pushes don't get stuck in queue
+    # Cancel any in-progress build so new pushes don't pile up
     concurrency:
       group: "pages"
       cancel-in-progress: true
 
-    # Needs permissions to deploy to GitHub Pages
     permissions:
       contents: write
-      pages: write
-      id-token: write
 
     steps:
       - name: Checkout repository
@@ -93,15 +85,22 @@ jobs:
             cd /workdir/repo/x86_64
             repo-add theonix.db.tar.gz *.pkg.tar.zst
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Deploy repo to gh-pages branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: './repo'
+          # Checkout or create the gh-pages branch
+          git fetch origin gh-pages 2>/dev/null || true
+          git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # Remove everything except .git
+          git rm -rf . --quiet 2>/dev/null || true
+
+          # Copy built repo files in
+          cp -r ${{ github.workspace }}/repo/x86_64/* .
+
+          # Commit and push
+          git add -A
+          git diff --cached --quiet || git commit -m "ci: update pacman repo [skip ci]"
+          git push origin gh-pages --force
