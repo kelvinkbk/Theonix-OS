@@ -1,6 +1,6 @@
 pkgname=theonix-config
 pkgver=0.1.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Theonix OS configuration, branding, and helper scripts"
 arch=('any')
 url="https://github.com/kelvinkbk/Theonix-OS"
@@ -35,11 +35,7 @@ package() {
     install -Dm644 etc/skel/.config/plasma-wallpaper.conf \
         "$pkgdir/etc/skel/.config/plasma-wallpaper.conf"
 
-    # Install desktop MIME handlers
-    install -Dm644 usr/share/applications/theonix-uacl.desktop \
-        "$pkgdir/usr/share/applications/theonix-uacl.desktop"
-    install -Dm644 usr/share/applications/theonix-app-manager.desktop \
-        "$pkgdir/usr/share/applications/theonix-app-manager.desktop"
+    # Desktop MIME handlers are installed by their respective packages
 
     # Install helper scripts from the main profile dir
     cd "$srcdir/local-source/profile/airootfs"
